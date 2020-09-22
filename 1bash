@@ -1,0 +1,2981 @@
+#!/bin/bash
+
+##########################################################################
+##########################################################################
+#################   nvOC v0019-3.0 - Community Release   #################
+##########   Based on the original nvOC v0019-1.4 by fullzero   ##########
+##########################################################################
+##########################################################################
+
+# fullzero:     nvOC creator
+
+# + contributors (in alphabetical order):
+
+# BaliMiner:    TELEGRAM_MESSAGES
+#               ( BTC address:  1HbzxQ6AVeWYvFm322KtxZcJJLAqfJHpN8 )
+
+# damNmad:      damNmad_ALGO_SPECIFIC_OC
+#               nvOC discord channel https://discordapp.com/invite/8YDFEvY
+#               Added Lots of COIN selections
+#               Alternative telegram alert
+#               ( BTC address: 1Mtf6K7c3ZhBDcPz91c4wcQ95DxLn88zC )
+
+
+# IAmNotAJeep:  IAmNotAJeep_and_Maxximus007_WATCHDOG
+#               Methods for improved system stability
+#               ( BTC address: 13PnEKpfVzNseWkrm6LoueKcCMPj74zPv7 )
+
+# kk003:        Alternative telegram alert ( very extensive )
+#               Telegram Setup Video
+#               ( BTC address: 196pMZnByg5UaPvJPK67ErAHgDPeSyu8QV )
+
+# leenoox:      nvOC ver 0019-2.0 (community release) main developer
+#               The new 0019-2.0 TEMP_CONTROL
+#               Methods for color output throughout nvOC scripts
+#               multiple bug fixes and enhacements for ver 0019-2.0
+
+# lost_post:    upPASTE (timeout based _Parallax_ Mode auto-updating)
+#               Methods for separating settings and implementation
+#               Methods for AUTO_UPDATE
+#               ( BTC address: 1GFTEtLLvvwoa4ogDntD5oaXBgJLYokzTC )
+
+# LukePicci:    nvOC 19-2.1 main developer
+
+# Maxximus007:  Maxximus007_AUTO_TEMPERATURE_CONTROL
+#               Expectless 1bash
+#	        IAmNotAJeep_and_Maxximus007_WATCHDOG
+#               ( BTC address: 1JAFefdPVAs3WQiTqnYWbsjifJAEjQcjQ8 )
+
+# meligo:       FAQ website nvoc-mining-os.com
+#               ( BTC address: 1AwUJMztX2ARZp8ULqR5UsK3b27om8j3vq )
+
+# papampi:      nvOC Community Release main developer
+#               WTM_AUTO_SWITCH
+#	        WTM_PROFIT_CHECK
+#               Alternative telegram alert and guide
+#               Web info http://rig_ip/index.html
+#               multiple bug fixes and enhacements for ver 0019-2.0
+#               ( BTC address: 1NsnsnqkkVuopTGvUSGrkMhhug8kg6zgP9 )
+
+# _Parallax_:   _Parallax_ Mode ( wget + pastebin oneBash updating )
+#               Methods for image size reduction
+#               Methods for logging and system enhancements (with next version)
+#               ( BTC address: 329k8rDgxHHcHAEXfwznqv25Go5LERGWLp )
+
+# salfter:      SALFTER_NICEHASH_PROFIT_SWITCHING
+#               SALFTER_MPH_PROFIT_SWITCHING
+#               ( BTC address: 1TipsGocnz2N5qgAm9f7JLrsMqkb3oXe2 )
+
+# SizzlePizzle: Algo mining unification
+#               /home/fred/Téléchargements/minage/transfert_autre_rig/miner1/
+# Stubo:        ver 0019-2.0 (community release) main developer
+#               nvOC function script
+#               minerinfo script
+#               multiple bug fixes and enhacements for ver 0019-2.0
+
+# xleejohnx:    SRR support
+#               ( BTC address: 1EY5WbiW3YkWanSKEGcjCETpQfCR81wc56 )
+
+v0001="Community Release"
+v0002="Papampi; Telegram changes"
+v0003="Papampi; WTM_MINIMUM_MINING_TIME"
+v0004="Papampi; More NiceHash mining algos"
+v0005="damNmad; New Coins LUX, SUMO, DSR"
+v0006="Papampi; New Coins ELLA, XVG, GBX, CRC"
+v0007="Papampi; EQUIHASH_MINER, ETHASH_MINER, bminer"
+v0008="Papampi; Nicehash bug fixes"
+v0009="papampiMRRVN; Added P104 and changed P106 to P10X"
+v0010="papampi; WTM minimum mining time and force switch"
+v0011="papampi; Pool Wallet Address Format"
+v0012="papampi; New claymore dual mining "
+v0013="damNmad; Added BTCP & notes for $WALLET_ADDRESS_FORMAT variable"
+v0014="Falcon; Added RavenCoin (RVN)"
+v0015="papampi; Temp Control Maximum fan speed" 
+v0016="papampi; Some fix in claymore_dual"
+v0017="papampi; NEOSCRYPT_MINER, LYRA2V2_MINER, SKUNK_MINER, SKEIN_MINER"
+v0018="papampi; Alternate Pool Switch"
+v0019="papampi; WTM 2nd lower minimum difference to switch"
+v0020="LukePicci; Relocate nvOC to arbitrary install directory"
+v0021="papampi; More miner optional arguments"
+v0022="papampi; OhGodAnETHlargementPill"
+v0023="LukePicci; Simplified ALGO specific settings"
+v0024="papampi; HEADLEASS_MODE"
+v0025="LuKePicci; AUTO_SWITCH generalized implementetion"
+v0026="papampi, sizzlephizzle; Algo mining unification" 
+v0027="LuKePicci; Separate algo_id"
+v0028="LuKePicci; More tempcontrol alert color and verbosity options"
+v0029="papampi; Nice Algo extension arguments"
+v0030="papampi;CryptoNightHeavy"  
+v0031="papampi;New EWBF v0.3"  
+v0032="papampi;Version numbering"
+v0033="papampi;ZHASH, PHI1612, PHI2 Algos, Z_EWBF Miner and NICE_X16R"
+v0034="LuKePicci;Rearrange settings and explaination comments"
+v0035="LuKePicci;Uniform plusCPU handling"
+v0036="papampi;Ethminer new arguments, Coin Pool Protocol"
+v0037="papampi;Added bminer scheme info for zhash & tensority based coins"
+v0038="Spiral;Added max temperature shutdown option & resolution option for teamviewer"
+v0039="papampi;CryptoDredge miner, Suported Algos: Allium, Blake2s, Lyra2v2, Lyra2z, NeoScrypt, PHI1612, Phi2, Skein, Skunkhash, Tribus"
+v0040="papampi;BMiner Dual mining"
+v0041="papampi;XDNA COIN, HEX ALGO"
+v0042="papampi;lolMiner"
+v0043="papampi;PhoenixMiner"
+v0044="papampi;Auto restart miner,T_Rex miner"
+v0045="papampi;XMR_Stak 2.5.1, CryptoNightV8"
+v0046="papampi;X22I, SUQA"
+v0047="papampi;Energi Algo, ENERGIMINER, NRG COIN"
+v0048="papampi;cuckaroo29 and cuckoo Algo"
+v0049="papampi;MTP Algo"
+v0050="papampi;cuckatoo31 Algo, Nice_Cuckatoo31 and Nice_Cuckaroo29 "
+
+# Do not edit these lines
+nvOC_Ver="v0019-3.0" 
+nvOC_1bash_ver="0050"
+nvOC_1bash_least_compatible="0034"
+nvOC_1bash_last_compatible="0035"
+
+# Open the terminal to launch miner; will auto launch on boot
+
+# firefox has an OP bookmark; look at the OP for more information
+
+# Supported Algorithms: 
+#               ETHASH, EQUIHASH, NEOSCRYPT, LYRA2V2, SKUNK, SKEIN, BITCORE, TIMETRAVEL10 
+#               KECCAK, LYRA2Z, X11GHOST, SIB, CRYPTONIGHT, CRYPTONIGHT-V7, PHI1612, PASCAL, LBRY 
+#               Diamond Groestl, GROESTL, Myriad Groestl, Decred, SIA, X13, X16R, XEVAN
+
+# ALGO Mining with NiceHash (Auto converts to BTC)
+######### NICE-ETHASH,NICE-EQUIHASH, NICE-LYRA2REV2, NICE-NEOSCRYPT, NICE-CRYPTONIGHT, NICE-X11GOST, NICE-SKUNKHASH
+
+# ALGO Miningh with Zpool (Auto converts to BTC)
+######### ZPOOL_LYRA2V2  ZPOOL_BLAKE2S  ZPOOL_EQUIHASH  ZPOOL_LBC  ZPOOL_NEOSCRYPT  ZPOOL_LBRY  ZPOOL_SKEIN
+
+# ALGO Miningh with Miningpoolhub (Auto convert to any coins in MPH settings web page)
+#########MPH_EQUIHASH, MPH_ETHASH, MPH_SKEIN, MPH_LYRA2Z, MPH_NEOSCRYPT, MPH_LYRA2V2, MPH_CRYPTONIGHTV7, MPH_KECCAK
+
+# Claymore_Dual (ETHASH + Decred/Siacoin/Lbry/Pascal/Blake2s/Keccak)
+## All supported coins can be added in Claymore_Dual section
+
+# Profit Switchers
+######### WhatToMine.com Auto switch
+######### SALFTER_NICEHASH_PROFIT_SWITCHING
+######### SALFTER_MPH_PROFIT_SWITCHING
+######### SALFTER_PROGRAMATIC_SWITCHING       # - change what coin/algo you mine through an external JSON configuration file 
+
+# Choose any coins listed in coin section or add yours (Ask devs if you dont know how)
+
+###############################################################################
+#                                                                             #
+#  IMPORTANT: USE ALL CAPS when editing below except for addresses and pools  #
+#                                                                             #
+###############################################################################
+
+########################################################
+#                                                      #
+# General settings                                     #
+#                                                      #
+########################################################
+
+COIN="MRRVN"                  # Manual mining, choose the coin to mine (like "ETH", "ZEC", ...)
+			    # Dual mining: "DUAL_CLAYMORE" or "DUAL_BMINER"
+                            # Automatic profit-based switchers below
+
+AUTO_START_MINER="YES"      # YES or NO # Set this to NO when troubleshooting, this will prevent the watchdog restarting the rig
+
+AUTO_SWITCH="NO"       # NO, WTM_SWITCHING, SALFTER_NICEHASH_SWITCHING,
+                       # SALFTER_MPH_SWITCHING, SALFTER_PROGRAMATIC_SWITCHINGBEAM
+
+# Notes: - NO disables auto switching, mine previously selected COIN
+#        - WTM_SWTICHING switch coin over your preferred pools following
+#          whattomine.com profitability charts
+#        - SALFTER_NICEHASH_SWITCHING switch algo over nicehash pools following
+#          nicehash profitabiliy charts
+#        - SALFTER_MPH_SWITCHING switch algo over miningpoolhub pools following
+#          miningpoolhub profitability charts
+#        - SALFTER_PROGRAMATIC_SWITCHING switch algo over pools provided by any
+#          custom api URL following its own profitability logic
+
+NUMBER_GPUS_INSTALLED=""    # Number or "" # Set number of GPUs installed. Watchdog will check installed vs detected. Leave empty to not check
+
+LOCALorREMOTE="REMOTE"       # LOCAL or REMOTE # Set to LOCAL if you have local access to the rig. Set to REMOTE if logging remotely to the rig
+# LOCAL will attach the mining process to the gnome or guake terminal
+# REMOTE will leave it unattached, miner will be launched using "screen", ready for SSH
+
+
+TEAMVIEWER="NO"             # YES or NO # If you use Team Viewer to remotely connect to this rig set this to YES
+RESOLUTION="1366x768"       # Default system resolution used when connecting through TeamViewer
+
+SSH="YES"                   # YES or NO # If you use SSH to remotely connect to this rig set this to YES
+
+
+AUTO_REBOOT="NO"            # YES or NO # If you want this rig to periodically reboot set this to YES
+
+REBOOT_TIMEOUT_IN_MINUTES=2880  # If AUTO_REBOOT is set to YES, use this to set how often to reboot, 1440 = 24 hours, 2880 = 48 hours
+
+MINER_RESTART="NO"            # YES or NO # If you want to periodically restart miner set this to YES
+
+MINER_RESTART_TIMEOUT_IN_MINUTES=720  # If MINER_RESTART is set to YES, use this to set how often to restart miner, 720 = 12 hours
+
+
+SLOW_USB_KEY_MODE="NO"      # YES or NO # If you are using a slow USB flash drive (eg. USB 1.0 or USB 2.0) set this to YES
+
+
+GLOBAL_WORKERNAME="YES"     # YES or NO # Use same workername for all coins
+
+AUTO_WORKERNAME="CUSTOM"      # HOST or MAC or CUSTOM # Use HOST IP address or network card MAC address or CUSTOM name workername
+
+CUSTOM_WORKERNAME="test00"    # If AUTO_WORKERNAME="CUSTOM" enter your desired workername here
+
+
+_Parallax_MODE="NO"         # YES or NO # To deploy 1bash remotely from pastebin.com . You will need to create account
+
+pasteBASH="your_PASTE_here" # pastebin.com setting - enter paste link here
+
+upPASTE_TIMEOUT_IN_MINUTES=60  # pastebin.com setting - timeout
+
+
+CLEAR_LOGS_ON_BOOT="NO"     # YES or NO # Clear all logs when rig boots up
+
+LOG_ROTATE="YES"            # Rotate (clean) all logs every x hours. Highly recommended to set this to yes!
+
+LOG_ROTATE_INTERVAL="3"     # Time between log rotations in hours. Default is: 3
+
+
+SRR="NO"                    # YES or NO # Remote SRR control using Raspberry Pi device with SRR board
+
+SRR_SERIAL="000055"         # Remote SRR control setting
+
+__SRR_SLOT="1"              # Remote SRR control setting
+
+
+CONTROL_GPU_LED="NO"       # YES or NO # Control GPU LED light. NOTE: It only works on some models
+
+LED_BRIGHTNESS=100          # 0 - 100 # Set the LED brightness intensity. 0 = OFF, 100 = full brightness
+
+########################################################
+#                                                      #
+# MINER_WATCHDOG settings                              #
+#                                                      #
+########################################################
+
+MINER_WATCHDOG="YES"        # YES or NO # Monitors the rig and automatically corrects the detected problems. Highly recommended to use this!
+
+SYSRQ_REBOOT="NO"           # YES or NO # Use sys request reboot or normal reboot. 
+                            # Set "YES", watchdog and tempcontrol use sysrq reboot to prevent kernel panic and freeze if GPU drops off the bus
+
+WATCHDOG_CYCLE="15"         # Time between watchdog cycle loops to check GPU utilization
+
+WATCHDOG_USE_COLOR="NO"     # Watchdog log beautifier, use bold text and colors
+
+GPU_UTIL_THRESHOLD="70"     # GPU utilization threshold, If utilization bellow this value watchdog takes action (Recommended values 70-90) 
+	    
+HIGH_LOAD_REBOOT="NO"       # YES or NO, Set to YES if you want watchdog reboot when all load averages (1 min, 5 min and 15 min) goes over double the CPU cores.
+                            # This option uses sysrq_reboot to reboot the rig.
+			    # Works only if not using plusCPU.
+
+ALT_POOL="NO"               # YES or NO, Set to YES if you want to enable  poolswitch. 
+                            # Switch to alternate pool if main pool goes down.
+                            # Dual mining and salfter auto switch not supported.
+                            # If pool goes down, poolswitch will stop/disable wtm auto switch and will enable/start it after pool comes up to prevent coin data mixed up.
+	                    # If main pool use username, alternate pool should use same username and workername. 
+                            # If anonymous mining with coin address alternate pool should use same. 
+                            # If ALT_POOL="YES" add as follow to your coins data (order should be the same).
+
+###alternate pool setup example: 
+#ZCL_POOL_1="europe.equihash-hub.miningpoolhub.com"
+#ZCL_PORT_1="20575"
+#ZCL_POOL_2="zcl.suprnova.cc"
+#ZCL_PORT_2="4042"
+#ZCL_POOL=$ZCL_POOL_1  #Dont edit this
+#ZCL_PORT=$ZCL_PORT_1  #Dont edit this
+
+
+########################################################
+#                                                      #
+# General OC (overclock) and Power Limit settings      #
+#                                                      #
+########################################################
+
+POWERLIMIT_MODE="ALGO_SPECIFIC"    # GLOBAL, GPU_SPECIFIC, ALGO_SPECIFIC (Pro Settings: GLOBAL_with_GPU_OFFSET, ALGO_SPECIFIC_with_GPU_OFFSET)
+
+OVERCLOCK_MODE="ALGO_SPECIFIC"     # NO, GLOBAL, GPU_SPECIFIC, ALGO_SPECIFIC (Pro Settings: GLOBAL_with_GPU_OFFSET, ALGO_SPECIFIC_with_GPU_OFFSET)
+
+# Modes: - NO disables overclock
+#        - GLOBAL mode means no individual gpu- or algo-specific settings are used
+#        - GPU_SPECIFIC let global setting be overridden by individual gpu-specific setting
+#        - ALGO_SPECIFIC let global setting be dynamically overridden by algo-specific setting
+#        - Pro Settings are not for the faint-hearted. Dont use if you dont know what they are. 
+#        For optimal use of any mining switcher use ALGO_SPECIFIC modes !!
+#        Default values set later on in 1bash are for 1060, remember to set yours accordingly.
+
+_POWERLIMIT_WATTS=75         # Global base Power Limit in watts for each GPU
+
+_CORE_OVERCLOCK=100          # Global base Core overclock offset
+
+_MEMORY_OVERCLOCK=100        # Global base Memory overclock offset
+
+# Notes: - the above global settings are for all GPU's and algos, may be subject to
+#          overrides or variations according to selected OC and Power Limit modes
+#        - algo-specific and individual gpu-specific settings are some sections below in this file
+
+HEADLESS_MODE="YES"                 # YES or NO # If using P106_100, P104-100 GPU's in a full headless (no monitor) rig, set this to YES
+
+GPUPowerMizerMode_Adjust="YES"      # YES or NO # Use nvidia PowerMizerMode
+
+GPUPowerMizerMode=1                # Set PowerMizerMode
+
+OhGodAnETHlargementPill="NO"       # YES or NO, Set to YES for mining Ethash algos with 1080 or 1080TI cards
+
+
+########################################################
+#                                                      #
+# MINER_TEMP_CONTROL settings                          #
+#                                                      #
+########################################################
+
+# Automatically adjusts the fan speed to keep the desired target temp. If the actual temp is above the target temp this script will increase the fan speed. If the actual temp is 2C below the target temp this script will reduce the fan speed. If the target temperature can't be reached with fan adjustments it will decrease the Power Limit. If actual temp is above the desired target temp and fan speed is already at 100%, the script will lower the Power Limit. Once the target temp is reached, Power Limit will be restored.
+
+MINER_TEMP_CONTROL="YES"           # YES or NO # Automatically adjusts the fan speed to keep the desired temp. Highly recommended to use this!
+
+MANUAL_FAN="NO"                    # YES or NO # Manually set the fans, no auto adjustment. Set this to NO if using the auto MINER_TEMP_CONTROL
+
+FAN_SPEED=75                       # Set fan speed percentage if MANUAL_FAN="YES" (Do not write the % sign)
+
+INDIVIDUAL_TARGET_TEMPS="NO"  # YES or NO, if YES global target temperature is overridden by individual per-GPU setting found later in this file
+
+TARGET_TEMP=65                # Set the desired global (all GPU's) target temperature in Celsius. Recommended ranges: 55 - 75
+
+HOT_SHUTDOWN="NO"	      # YES or NO, if YES system will shutdown when SHUTDOWN_TEMP is exceeded.
+SHUTDOWN_TEMP=85	      # If HOT_SHUTDOWN is YES then the system will shutdown if this number is exceeded. (Celsius)
+
+ALLOWED_TEMP_DIFF=2           # If current temp is 2C below the target temp reduce the fan speed. Works only if current temp is below target temp
+
+MINIMAL_FAN_SPEED=30          # Lowest fan speed that will be used. Recommended ranges: 40 - 60
+
+MAXIMAL_FAN_SPEED=95          # HIghest fan speed before temp control drops power limit to reach TARGET_TEMP. Recommended ranges: 90 - 100
+
+__FAN_ADJUST=5                # Fan adjustment size in percent
+
+POWER_ADJUST=5                # Adjustment size in watts. If the target temp can not be achieved and fan is already at 100%, reduce Power Limit
+
+RESTORE_POWER_LIMIT=85        # Restore original Power Limit if fan speed is lower than this percentage. Recommended: 10% less than Maximum fan speed
+
+WARN_PL_DROPS="NO"            # Gives a Warning every time an auto-adjustment occurs and Powerlimit gets dropped
+
+USE_COLOR="YES"               # YES or NO, enables Text output beautifier, use bold text and colors
+
+
+########################################################################################
+# GLOBAL_WORKERNAME implementation Start - DO NOT EDIT this section                    #
+########################################################################################
+IPW=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+IP_AS_WORKER=$(echo -n "$IPW" | tail -c -3 | sed 'y/./0/')
+MAC=$(ifconfig -a | grep -Po 'HWaddr \K.*$')
+MAC_AS_WORKER=$(echo -n "$MAC" | sed 'y/:/_/')
+if [ $GLOBAL_WORKERNAME == "YES" ]; then
+  if [ $AUTO_WORKERNAME == "HOST" ]; then
+    WORKERNAME=$IP_AS_WORKER
+  elif [ $AUTO_WORKERNAME == "MAC" ]; then
+    WORKERNAME=$MAC_AS_WORKER
+  elif [ $AUTO_WORKERNAME == "CUSTOM" ]; then
+    WORKERNAME=$CUSTOM_WORKERNAME
+  fi
+fi
+########################################################################################
+# GLOBAL_WORKERNAME implementation End - DO NOT EDIT this section                      #
+########################################################################################
+
+################################################################
+#                                                              #
+# Algo definitions and Coin->Algo mappings                     #
+#                                                              #
+################################################################
+
+# Notes: nvOC natively supports some algorithms.
+#        You can add a new one but you also have to specify the set of coins that
+#        support it and a compatilbe miner in the next sections.
+#        See the example for NEWCOIN/NEWALGO at the end of this section.
+
+ALGOS="ARGON2D BITCORE CNHEAVY CNV7 CNV8 CNSAB CUCKAROO29 CUCKATOO31 CUCKOO CUCKOOCYCLE DECRED EQHZERO EQHZEL EQHBEAM ETHASH EXOSIS GRS HEX KAWPOW KECCAK LBRY LYRA2V2 LYRA2Z MTP MYR_GR NEOSCRYPT NEOSCRYPTXAYA NIST5 PASCAL PHI1612 PHI2 PROGPOW SIA SIB SKEIN SKUNK TRIBUS X13 X16R X22I X21S X25X XEVAN ZHASH VERUS LYRA2WEB"
+
+ARGON2D_COINS="DYN"
+BITCORE_COINS="BTX"
+# CRYPTONIGHT_COINS="KRB,NICE_CRYPTONIGHT"
+CNSAB="TUBE"
+CNV7_COINS="ETN"
+CNV8_COINS="MPH_CRYPTONIGHTV8,NICE_CNV8,GRFT,TTC"
+CNHEAVY_COINS="LOKI,NICE_CNHEAVY"
+CNR_COINS="XMR"
+CUCKOOCYCLE_COINS="AE"
+CUCKAROO29_COINS="GRIN,NICE_CUCKAROO29"
+CUCKATOO31_COINS="GRIN31,NICE_CUCKATOO31"
+DECRED_COINS="DCR"
+EQHZERO_COINS="ZERO,ZCL"        # algo 192_2
+EQHZEL_COINS="ZEL"              # algo 125_5
+EQHBEAM_COINS="BEAM"            # algo 150-5-3 BEAMHASH2
+#EQUIHASH_COINS="ZEC,ZEN,HUSH,ZCL,BTCP,KMD,ZPOOL_EQUIHASH,MPH_EQUIHASH,NICE_EQUIHASH,VOTE,BTCP,BEAM,ARW"
+ETHASH_COINS="ETH,ETC,EXP,UBQ,CLO,MUSIC,SOIL,MPH_ETHASH,PIRL,NICE_ETHASH,ETP,REOSC,REOSCS,ETCS,B2G,ETH1"
+#EXOSIS_COINS="EXO"
+GRS_COINS="GRS,MPH_GRS"
+HEX_COINS="XDNA,HDRX"
+KAWPOW_COINS="RVN,MRRVN,RVNSOLO"
+KECCAK_COINS="" #HEX_COINS="XDNA"=keccak
+LBRY_COINS="LBC,ZPOOL_LBRY"
+LYRA2V2_COINS="MONA,VTC,NICE_LYRA2REV2,XVG,MPH_LYRA2V2,ZPOOL_LYRA2V2"
+LYRA2RE3_COINS="VTC,NICE_LYRA2REV3"
+LYRA2Z_COINS="XZC,MPH_LYRA2Z"
+LYRA2WEB_COINS="WEB"
+MTP_COINS="XZC"
+MYR_GR_COINS="XMY,MPH_MYR_GR"
+NEOSCRYPT_COINS="FTC,ORB,PXC,VIVO,TZC,NICE_NEOSCRYPT,DSR,CRC,GBX,MPH_NEOSCRYPT,ZPOOL_NEOSCRYPT,QBIC,TRAID,ZIXX,STG,DISL,MOG"
+NEOSCRYPTXAYA_COINS="CHI"
+NIST5_COINS="IDC"
+PASCAL_COINS="PASC,PASL"
+PHI1612_COINS="FLM,SERA"
+PHI2_COINS="LUX,SPDR,GEX"
+PROGPOW_COINS="BCI"
+SIA_COINS="SIA"
+SIB_COINS="SIB,NICE_X11GHOST"
+SKEIN_COINS="ZPOOL_SKEIN,MPH_SKEIN"
+SKUNK_COINS="SIGT,ZPOOL_SKUNK,ALTCOM,NICE_SKUNKHASH"
+TRIBUS_COINS="BZL"
+X13_COINS="ONION"
+X16R_COINS="XMN,TNA,TRAGO,EXO"
+X22I_COINS=""
+X21S_COINS="RITO"
+X25X_COINS="SIN"
+XEVAN_COINS="BSD"
+ZHASH_COINS="AION,BTG,ZERO,ZEL,SAFE"
+VERUS_COINS="VRSC"
+
+
+# example, adding NEWALGO for NEWCOIN:
+#
+#   ALGOS="${ALGOS} NEWALGO"
+#   NEWALGO_COINS="NEWCOIN"
+
+
+########################################################
+#                                                      #
+# Common miners settings                               #
+#                                                      #
+########################################################
+
+USE_ENVIRONMENTAL_VARIBLES="NO"                  # YES or NO # Not needed for nvidia cards. Default: NO
+
+BTC_ADDRESS="replace_with_your_BTC_address"      # Your BTC addrees to use with zpool
+
+NICE_ADDRESS="NICEHASH_BTC_ADDRESS"              # Your internal Nicehash BTC addrees to use with nicehash		
+
+MPH_ADDRESS="Your_MiningPoolHub_Username"        # You can use COIN_ADDRESS="$MPH_ADDRESS" if you mine on miningpoolhub
+
+WALLET_ADDRESS_FORMAT="."                        # Choose between "." , "/" , "-" or any other separators your pool uses.
+                                                 # Some pools require dot (address.worker), some require slash (address/worker) format.
+                                                 # Depending on the pool you use, set this appropriately:
+
+MINER_PWD="58125"                                    # Set the miner password. Default: x
+                                                 # For zpool use MINER_PWD="$WORKERNAME,c=btc"
+                                                 # For dwarfpool and some other pools you can set your email to enable notification from pool
+
+########################################################
+#                                                      #
+# Algo->miner mapping and specific settings            #
+#                                                      #
+########################################################
+
+# Notes: miner, intensity and wallet address format for different algos.
+#        Choose a miner either from built in miners or any installed pluggable miner
+#        Test intensity on your rig and edit it or miner will set default values.
+#        Choose the wallet address format your pool requires, or leave common format.
+#        You can define new mappings as in the example at the end of this section.
+#        Read BMINER available scheme in coin section 
+
+# Available builtin miners:
+#        Various algos:
+#          "ANXccminer", "ASccminer", "CryptoDredge", "KTccminer",  
+#          "KXccminer", "SILENTminer", "SPccminer",  "SUPRminer",   
+#          "TPccminer", "T_Rex", "VERTMINER", "XMR_Stak", "ZENEMYminer"
+#        Equihash:
+#          "DSTM", "EWBF", "BMINER" , "GMINER" , "MINIZ"
+#        Zhash:
+#          "Z_EWBF", "BMINER", "LOLMINER"
+#        Ethash:
+#          "CLAYMORE", "ETHMINER", "GENOIL", "BMINER", "PhoenixMiner"
+#        Energi:
+#          "ENERGIMINER"
+#        Web-chain
+#           "web-chain-miner"
+
+
+#Argon2d
+ARGON2D_INTENSITY="0"
+ARGON2D_MINER="CcminerArgon"
+ARGON2D_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## BITCORE, TIMETRAVEL10
+BITCORE_INTENSITY="0"
+BITCORE_MINER="ZENEMYminer"
+BITCORE_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## CRYPTONIGHT
+#CRYPTONIGHT_INTENSITY="0"
+#CRYPTONIGHT_MINER="00"
+#CRYPTONIGHT_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## CRYPTONIGHT-V7
+CNV7_INTENSITY="0"
+CNV7_MINER="CryptoDredge"
+CNV7_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## CRYPTONIGHT-V8
+CNV8_INTENSITY="0"
+CNV8_MINER="CryptoDredge"
+CNV8_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+
+## CRYPTONIGHTHEAVY
+CNHEAVY_INTENSITY="0"
+CNHEAVY_MINER="CryptoDredge"
+CNHEAVY_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## CRYPTONIGHTSABER
+CNSAB_INTENSITY="0"
+CNSAB_MINER="CryptoDredge"
+CNSAB_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## CRYPTONIGHT R
+CRYPTONIGHTR_INTENSITY="0"
+CRYPTONIGHTR_MINER="XMR_Stak"
+CRYPTONIGHTR_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+# CUCKAROO29 
+CUCKAROO29_MINER="GMINER"
+CUCKAROO29_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+# CUCKATOO31 
+CUCKATOO31_MINER="GMINER"
+CUCKATOO31_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+# CUCKAROOCYCLE 
+CUCKAROOCYCLE_MINER="GMINER"
+CUCKAROOCYCLE_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## Decred
+DCR_INTENSITY="0"
+DCR_MINER="TPccminer"
+DCR_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## EQUIHASH
+# EQUIHASH_MINER="MINIZ"
+# EQUIHASH_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## EQHZERO
+EQHZERO_MINER="MINIZ"
+EQHZERO_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## EQHZEL
+EQHZEL_MINER="MINIZ"
+EQHZEL_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## EQHBEAM
+EQHBEAM_MINER="MINIZ"
+EQHBEAM_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## ETHASH
+ETHASH_MINER="ETHMINER"
+ETHASH_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## EXOSIS
+EXOSIS_INTENSITY="0"
+EXOSIS_MINER="TPccminer"
+EXOSIS_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## GROESTL
+GROESTL_INTENSITY="0"
+GROESTL_MINER="TPccminer"
+GROESTL_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## HEX
+HEX_INTENSITY="0"
+HEX_MINER="ZENEMYminer"
+HEX_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## KAWPOW
+KAWPOW_INTENSITY="0"
+KAWPOW_MINER="T_Rex"
+KAWPOW_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## KECCAK
+KECCAK_INTENSITY="0"
+KECCAK_MINER="TPccminer"
+KECCAK_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## LBRY
+LBRY_INTENSITY="0"
+LBRY_MINER="SPccminer"
+LBRY_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## LYRA2REV2
+LYRA2V2_INTENSITY="0"
+LYRA2V2_MINER="CryptoDredge"
+LYRA2V2_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## LYRA2Z
+LYRA2Z_INTENSITY="0"
+LYRA2Z_MINER="TPccminer"
+LYRA2Z_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## LYRA2REV3
+LYRA2RE3_INTENSITY="0"
+LYRA2RE3_MINER="CryptoDredge"
+LYRA2RE3_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+
+## MTP
+MTP_INTENSITY="6"
+MTP_MINER="CryptoDredge"
+MTP_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## Myriad Groestl
+MYR_GR_INTENSITY="0"
+MYR_GR_MINER="TPccminer"
+MYR_GR_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## Neoscrypt
+NEOSCRYPT_INTENSITY="0"
+NEOSCRYPT_MINER="CryptoDredge"
+NEOSCRYPT_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## NeoscryptXAya
+NEOSCRYPTXAYA_INTENSITY="0"
+NEOSCRYPTXAYA_MINER="CcminerXaya"
+NEOSCRYPTXAYA_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## NIST5
+NIST5_INTENSITY="0"
+NIST5_MINER="TPccminer"
+NIST5_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## Keccak
+KECCAK_INTENSITY="0"
+KECCAK_MINER="CCMINER"
+KECCAK_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## PASCAL
+PASCAL_INTENSITY="0"
+PASCAL_MINER="TPccminer"
+PASCAL_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## PHI1612
+PHI1612_INTENSITY="0"
+PHI1612_MINER="ANXccminer"
+PHI1612_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## PHI2
+PHI2_INTENSITY="0"
+PHI2_MINER="CryptoDredge"
+PHI2_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## PROGPOW
+PROGPOW_INTENSITY="0"
+PROGPOW_MINER="progpowminer"
+PROGPOW_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## SIA
+SIA_INTENSITY="0"
+SIA_MINER="SPccminer"
+SIA_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## SKEIN
+SKEIN_INTENSITY="0"
+SKEIN_MINER="TPccminer"
+SKEIN_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## SKUNK
+SKUNK_INTENSITY="0"
+SKUNK_MINER="TPccminer"
+SKUNK_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## VERUS
+VERUS_INTENSITY="0"
+VERUS_MINER="CcminerVerus"
+VERUS_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## WEBCHAIN
+LYRA2WEB_INTENSITY="0"
+LYRA2WEB_MINER="webchain"
+LYRA2WEB_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## X11GHOST, SIB
+X11GHOST_INTENSITY="0"
+X11GHOST_MINER="SPccminer"
+X11GHOST_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## X13
+X13_INTENSITY="0"
+X13_MINER="TPccminer"
+X13_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## X16R
+X16R_INTENSITY="0"
+X16R_MINER="TPccminer"
+X16R_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## X22i
+X22I_INTENSITY="0"
+X22I_MINER="T_Rex" #"CcminerX22i"
+X22I_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## X21S
+X21S_INTENSITY="0"
+X21S_MINER="T_Rex"
+X21S_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## X25X
+X25X_INTENSITY="0"
+X25X_MINER="T_Rex"
+X25X_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## XEVAN
+XEVAN_INTENSITY="0"
+XEVAN_MINER="ZENEMYminer"
+XEVAN_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+## ZHASH
+ZHASH_MINER="Z_EWBF"
+ZHASH_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+# example, adding miner for NEWALGO:
+#
+#   ## Newalgo
+#   NEWALGO_MINER="builtin_or_pluggable_miner_name"
+#   NEWALGO_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+
+################################################################
+#                                                              #
+# CPU mining settings                                          #
+#                                                              #
+################################################################
+
+plusCPU="NO"                # YES or NO # Mine XMR with CPU. Set your XMR address in addresses/pools section
+
+threadCOUNT="4"             # Number of CPU threads to use for plusCPU mining. Please check how many threads your CPU has.
+
+plusCPU_MINER="XMRIG"      # choose "cpuOPT" for the only available builtin cpu miner or your pluggable miner name
+plusCPU_WALLET_FORMAT="$WALLET_ADDRESS_FORMAT"
+
+# example, replacing cpuminer for plusCPU:
+#
+# plusCPU_MINER="builtin_or_pluggable_miner_name"
+
+
+########################################################
+#                                                      #
+# Builtin GPU miners settings                          #
+#                                                      #
+########################################################
+
+CLAYMORE_OPTS=""                                 # Claymore optional arguments. EX: add "-esm 2" for miningpoolhub
+CLAYMORE_VERSION="latest"                   # "latest", "latest" or the version folder name.
+
+ETHMINER_OPTS=""                                 # Ethminer optional arguments. add "--api-port -3333" if you want web info
+ETHMINER_VERSION="latest"                   # "latest", "latest" or the version folder name.
+
+DSTM_OPTS=""                                     # DSTM Miner optional arguments add "--telemetry=$IPW:42000" if you want web info
+DSTM_VERSION="latest"                       # "latest", "latest" or the version folder name.
+
+EWBF_PERCENT="0"                                 # change EWBF_PERCENT to alter donation percent for EWBF Miner   
+EWBF_OPTS=""                                     # EWBF Equihash Miner optional arguments. add "--api $IPW:42000" if you want web info
+EWBF_VERSION="latest"                       # "latest", "latest" or the version folder name. If choose 3.3 you should extract 3.3 in miner folder to 3.3 folder
+
+Z_EWBF_PERCENT="0"                               # EWBF ZHASH Dev fee percent to alter donation percent   
+Z_EWBF_OPTS=""                                   # EWBF ZHASH Miner optional arguments. add "--api $IPW:42000" if you want web info
+Z_EWBF_VERSION="latest"                     # "latest", "latest" or the version folder name.
+
+BMINER_OPTS=""                                   # Bminer optional arguments. add "--api $IPW:42000" if you want web info
+BMINER_VERSION="latest"                     # "latest", "latest" or the version folder name.
+#BMINER_PROTOCOL, Deprecated, use COIN_POOL_PROTOCOL
+
+LOLMINER_OPTS=""                                 # LOLMINER optional arguments.
+LOLMINER_VERSION="latest"                   # "latest", "latest" or the version folder name.
+
+PhoenixMiner_OPTS=""                                 # PhoenixMiner optional arguments. Read the README file inside PhoenixMiner folder
+PhoenixMiner_VERSION="latest"                   # "latest", "latest" or the version folder name.
+
+ENERGIMINER_OPTS="-U --response-timeout 10 --cuda-parallel-hash 8 --cuda-block-size 256"            # ENERGIMINER Miner optional arguments
+ENERGIMINER_VERSION="latest"                       # "latest", "latest" or the version folder name.
+
+GMINER_OPTS=""                                   # Gminer optional arguments. 
+GMINER_VERSION="latest"                     # "latest", "latest" or the version folder name.
+
+CCMINER_OPTS=""                                  # ccminer optional arguments. Add "-b 0.0.0.0:4028", or "-b $IPW:42000" if you want web info (first one allows remote monitoring by default)
+
+ASccminer_VERSION="latest"                  # "latest", "latest" or the version folder name.
+CryptoDredge_VERSION="latest"
+KTccminer_VERSION="latest"
+KTccminer_cryptonight_VERSION="latest"
+TPccminer_VERSION="latest"
+XMR_Stak_VERSION="latest"
+ZENEMYminer_VERSION="latest"
+
+########################################################
+#                                                      #
+# COIN, POOL, PORT info section, sorted alphabetically #
+#                                                      #
+########################################################
+
+# Notes: set your coins infom pool and miner coin-specific arguments
+#        If you add any new coin here don't forget to also map it to its
+#        algo as explained in previous sections.
+#        You can setup new coins as in the example at the end of this section.
+#
+#        Default Coin Pool Protocols is stratum+tcp, If your pool has other protocols check miner support before changing it
+#        stratum+ssl, stratum+tcp, stratum+tls, stratum+tls12, stratum1+ssl, stratum1+tcp, stratum1+tls, stratum1+tls12, stratum2+ssl, stratum2+tcp, stratum2+tls, stratum2+tls12
+#
+#        If using BMINER use these in coin pool protocols:
+#        Equihash Stratum: "stratum", Equihash Stratum+SSL:"stratum+ssl" 
+#        Ethash Stratum:"ethash", Ethash Stratum+SSL:"ethash+ssl", Ethereum Proxy:"ethproxy" ethereum Stratum:"ethstratum"
+#        ZHash Algos like BTG: "zhash"
+#        Tensority based coins like BTM: "tensority"
+
+# Aeternity (AE)
+AE_ADDRESS="ak_2A7sSkCuapZ1z2AFdiWgbqf5fZ7yNkyzSrVPFsq4xKgmzGGxFZ"
+AE_EXTENSION_ARGUMENTS=""
+AE_POOL="ae-pool.beepool.org"
+AE_PORT="9505"
+AE_WORKER="$WORKERNAME"
+AE_POOL_PROTOCOL="stratum+tcp"
+
+# AION
+AION_ADDRESS="replace_with_your_address"
+AION_EXTENSION_ARGUMENTS="--algo aion"
+AION_POOL="AION POOL"
+AION_PORT="AION PORT"
+AION_WORKER="$WORKERNAME"
+AION_POOL_PROTOCOL="stratum+tcp"
+
+# ALTCOM
+ALTCOM_ADDRESS="replace_with_your_address"
+ALTCOM_EXTENSION_ARGUMENTS=""
+ALTCOM_POOL="ALTCOM POOL"
+ALTCOM_PORT="ALTCOM PORT"
+ALTCOM_WORKER="$WORKERNAME"
+ALTCOM_POOL_PROTOCOL="stratum+tcp"
+
+# Bitcoin Interest (BCI)
+BCI_ADDRESS="moi162001" #iNFRJk4C48o2RNGrWyTHncuG3xNwZDoFJW
+BCI_EXTENSION_ARGUMENTS=""
+BCI_POOL="bci.suprnova.cc"
+BCI_PORT="9166"
+BCI_WORKER="$WORKERNAME"
+BCI_POOL_PROTOCOL="stratum+tcp"
+
+# Bitsend (BSD)
+BSD_ADDRESS="replace_with_your_address"
+BSD_EXTENSION_ARGUMENTS=""
+BSD_POOL="bsd.suprnova.cc"
+BSD_PORT="8686"
+BSD_WORKER="$WORKERNAME"
+BSD_POOL_PROTOCOL="stratum+tcp"
+
+# Bitcoin Private (BTCP)
+BTCP_ADDRESS="moi162001"
+BTCP_EXTENSION_ARGUMENTS=""
+BTCP_POOL="btcp.suprnova.cc"
+BTCP_PORT="6822"
+BTCP_WORKER="$WORKERNAME"
+BTCP_POOL_PROTOCOL="stratum+tcp"
+
+# Bitcoinz (BTCZ)
+BTCZ_ADDRESS="replace_with_your_address"
+BTCZ_EXTENSION_ARGUMENTS=""
+BTCZ_POOL="btcz.suprnova.cc"
+BTCZ_PORT="5586"
+BTCZ_WORKER="$WORKERNAME"
+BTCZ_POOL_PROTOCOL="stratum+tcp"
+
+# Bitcoin Gold (BTG)
+BTG_ADDRESS="moi162001"
+BTG_EXTENSION_ARGUMENTS="--algo 144_5 --pers BgoldPoW"
+BTG_POOL="btg.suprnova.cc"
+BTG_PORT="8816"
+BTG_WORKER="$WORKERNAME"
+BTG_POOL_PROTOCOL="stratum+tcp"
+
+# Bitcore (BTX)
+BTX_ADDRESS="moi162001"
+BTX_EXTENSION_ARGUMENTS=""
+BTX_POOL="btx.suprnova.cc"
+BTX_PORT="3629"
+BTX_WORKER="$WORKERNAME"
+BTX_POOL_PROTOCOL="stratum+tcp"
+
+# Callisto (CLO)
+CLO_ADDRESS="0xC9DE457e64B349E118338096BdF4e589bcfFcbE7"
+CLO_EXTENSION_ARGUMENTS=""   
+CLO_POOL="clopool.pro"
+CLO_PORT="2561"
+CLO_WORKER="$WORKERNAME"
+CLO_POOL_PROTOCOL="stratum+tcp"
+
+# CrowdCoin (CRC)
+CRC_ADDRESS="Cd9AqzTVY3HWkNFdkAdMw2Cv7ayTHvViDq"
+CRC_EXTENSION_ARGUMENTS=""
+CRC_POOL="eu1.altminer.net"
+CRC_PORT="10004"
+CRC_WORKER="$WORKERNAME"
+CRC_POOL_PROTOCOL="stratum+tcp"
+
+# Decred (DCR)
+DCR_ADDRESS="replace_with_your_address"
+DCR_EXTENSION_ARGUMENTS=""
+DCR_POOL="yiimp.eu"
+DCR_PORT="3252"
+DCR_WORKER="$WORKERNAME"
+DCR_POOL_PROTOCOL="stratum+tcp"
+
+# GrinCoin (GRIN)
+GRIN_ADDRESS="replace_with_your_address"
+GRIN_EXTENSION_ARGUMENTS=""
+GRIN_POOL="GRIN_POOL"
+GRIN_PORT="GRIN_PORT"
+GRIN_WORKER="$WORKERNAME"
+GRIN_POOL_PROTOCOL="stratum+tcp"
+
+#Ellaism (ELLA)
+ELLA_ADDRESS="replace_with_your_address"
+ELLA_EXTENSION_ARGUMENTS=""    
+ELLA_POOL="replace_with_pool_address"
+ELLA_PORT="replace_with_pool_port"
+ELLA_WORKER="$WORKERNAME"
+ELLA_POOL_PROTOCOL="stratum+tcp"
+
+# Energi Coin (NRG)
+NRG_ADDRESS="replace_with_your_address"
+NRG_EXTENSION_ARGUMENTS=""   
+NRG_POOL="stratum.nrg.minecrypto.pro"
+NRG_PORT="9999"
+NRG_WORKER="$WORKERNAME"
+NRG_POOL_PROTOCOL="stratum"
+
+# Digibyte (DGB)
+DGB_ADDRESS="replace_with_your_address"
+DGB_EXTENSION_ARGUMENTS=""
+DGB_POOL="hub.miningpoolhub.com"
+DGB_PORT="20527"
+DGB_WORKER="$WORKERNAME"
+DGB_POOL_PROTOCOL="stratum+tcp"
+
+# Desire (DSR)
+DSR_ADDRESS="DRstTyGRkLU7WLh93UJDmspUTsVZhiAcHj"
+DSR_EXTENSION_ARGUMENTS=""
+DSR_POOL="pool.cryptopros.us"
+DSR_PORT="4233"
+DSR_WORKER="$WORKERNAME"
+DSR_POOL_PROTOCOL="stratum+tcp"
+
+#Ellaism (ELLA)
+ELLA_ADDRESS="replace_with_your_address"
+ELLA_EXTENSION_ARGUMENTS=""    
+ELLA_POOL="replace_with_pool_address"
+ELLA_PORT="replace_with_pool_port"
+ELLA_WORKER="$WORKERNAME"
+ELLA_POOL_PROTOCOL="stratum+tcp"
+
+# Ethereum Classic (ETC)
+ETC_ADDRESS="0xf0bce8d699316839f4c06a9f0f1881f5f206c41c"
+ETC_EXTENSION_ARGUMENTS=""                               # claymore opts: "-allcoins etc"
+ETC_POOL="etc-eu1.nanopool.org"
+ETC_PORT="19999"
+ETC_WORKER="$WORKERNAME"
+ETC_POOL_PROTOCOL="stratum+tcp"
+
+# Ethereum Classic solo  (ETC)
+ETCS_ADDRESS="0x9835160d2fa58e7c8e9845dae9d2784fec0f0a72"
+ETCS_EXTENSION_ARGUMENTS=""                               # claymore opts: "-allcoins etc"
+ETCS_POOL="solo-etc.2miners.com"
+ETCS_PORT="5050"
+ETCS_WORKER="$WORKERNAME"
+ETCS_POOL_PROTOCOL="stratum1+tcp"
+
+
+# Ethereum (ETH)
+ETH_ADDRESS="replace_with_your_address"
+ETH_EXTENSION_ARGUMENTS=""    
+ETH_POOL="europe.ethash-hub.miningpoolhub.com"
+ETH_PORT="20535"
+ETH_WORKER="$WORKERNAME"
+ETH_POOL_PROTOCOL="stratum+tcp"
+
+# Electroneum(ETN) 
+ETN_ADDRESS="etnjzKFU6ogESSKRZZbdqraPdcKVxEC17Cm1Xvbyy76PARQMmgrgceH4krAH6xmjKwJ3HtSAKuyFm1BBWYqtchtq9tBap8Qr4M.256e57c1804312e50a5746c2c770ae8c72fd478e81f8bbe60212b0a24478b19d"
+ETN_EXTENSION_ARGUMENTS=""
+ETN_POOL="mine.etn.fairpool.xyz"
+ETN_PORT="8888"
+ETN_WORKER="$WORKERNAME"
+ETN_POOL_PROTOCOL="stratum+tcp"
+
+# Metaverse (ETP)
+ETP_ADDRESS="replace_with_your_address"
+ETP_EXTENSION_ARGUMENTS=""
+ETP_POOL="replace_with_your_ETP_POOL"
+ETP_PORT="replace_with_your_ETP_PORT"
+ETP_WORKER="$WORKERNAME"
+ETP_POOL_PROTOCOL="stratum+tcp"
+
+# Expanse (EXP)
+EXP_ADDRESS="replace_with_your_address"
+EXP_EXTENSION_ARGUMENTS=""   
+EXP_POOL="exp-us.dwarfpool.com:"
+EXP_PORT="81"
+EXP_WORKER="$WORKERNAME"
+EXP_POOL_PROTOCOL="stratum+tcp"
+
+# Folm (FLM)
+FLM_ADDRESS="replace_with_your_address"
+FLM_EXTENSION_ARGUMENTS=""
+FLM_POOL="replace_with_your_FLM_POOL"
+FLM_PORT="replace_with_your_FLM_PORT"
+FLM_WORKER="$WORKERNAME"
+FLM_POOL_PROTOCOL="stratum+tcp"
+
+# FeatherCoin (FTC)
+FTC_ADDRESS="replace_with_your_address"
+FTC_EXTENSION_ARGUMENTS=""
+FTC_POOL="hub.miningpoolhub.com"
+FTC_PORT="20510"
+FTC_WORKER="$WORKERNAME"
+FTC_POOL_PROTOCOL="stratum+tcp"
+
+# GoByte (GBX)
+GBX_ADDRESS="GJyfnsptbSTm8PRPiJ24WGRWzpD9w4pg9b"
+GBX_EXTENSION_ARGUMENTS=""
+GBX_POOL="eu1.altminer.net"
+GBX_PORT="10000"
+GBX_WORKER="$WORKERNAME"
+GBX_POOL_PROTOCOL="stratum+tcp"
+
+# GrinCoin (GRIN)
+GRIN_ADDRESS="replace_with_your_address"
+GRIN_EXTENSION_ARGUMENTS=""
+GRIN_POOL="GRIN_POOL"
+GRIN_PORT="GRIN_PORT"
+GRIN_WORKER="$WORKERNAME"
+GRIN_POOL_PROTOCOL="stratum+tcp"
+
+# Grin31Coin (GRIN31)
+GRIN31_ADDRESS="replace_with_your_address"
+GRIN31_EXTENSION_ARGUMENTS=""
+GRIN31_POOL="GRIN_POOL"
+GRIN31_PORT="GRIN_PORT"
+GRIN31_WORKER="$WORKERNAME"
+GRIN31_POOL_PROTOCOL="stratum+tcp"
+
+# Groestl (GRS)
+GRS_ADDRESS="replace_with_your_address"
+GRS_EXTENSION_ARGUMENTS=""
+GRS_POOL="moria.dwarfpool.com"
+GRS_PORT="3345"
+GRS_WORKER="$WORKERNAME"
+GRS_POOL_PROTOCOL="stratum+tcp"
+
+# Hush (HUSH)
+HUSH_ADDRESS="replace_with_your_address"
+HUSH_EXTENSION_ARGUMENTS=""
+HUSH_POOL="zdash.suprnova.cc"
+HUSH_PORT="4048"
+HUSH_WORKER="$WORKERNAME"
+HUSH_POOL_PROTOCOL="stratum+tcp"
+
+# Komodo (KMD)
+KMD_ADDRESS="replace_with_your_address"
+KMD_EXTENSION_ARGUMENTS=""
+KMD_POOL="luckpool.org"
+KMD_PORT="3857"
+KMD_WORKER="$WORKERNAME"
+KMD_POOL_PROTOCOL="stratum+tcp"
+
+# Karbo (KRB)
+KRB_ADDRESS="replace_with_your_address"
+KRB_EXTENSION_ARGUMENTS=""
+KRB_POOL="krb.sberex.com"
+KRB_PORT="5555"
+KRB_WORKER="$WORKERNAME"
+KRB_POOL_PROTOCOL="stratum+tcp"
+
+# LBRY (LBC) 
+LBC_ADDRESS="replace_with_your_address"
+LBC_EXTENSION_ARGUMENTS=""
+LBC_POOL="lbry.suprnova.cc"
+LBC_PORT="6256"
+LBC_WORKER="$WORKERNAME"
+LBC_POOL_PROTOCOL="stratum+tcp"
+
+#Loki (LOKI)
+LOKI_ADDRESS="LAQ84CunrmHVT83mARffDY46z5VcXyR1ZRAJoJHVpe8SjbzDZiEUkuA5oCnwf9yyGU1NizyXgvHzvVZr98Qfk1BU9fy11ZJ.5dd62e4f212d296c0f32fe12e87587adfee3c25a62e86e2540c67f0c3f020c6d"
+LOKI_EXTENSION_ARGUMENTS=""
+LOKI_POOL="loki.miner.rocks"
+LOKI_PORT="5555"
+LOKI_WORKER="$WORKERNAME"
+LOKI_POOL_PROTOCOL="stratum+tcp"
+
+# Lux Coin (LUX)
+LUX_ADDRESS="replace_with_your_address"
+LUX_EXTENSION_ARGUMENTS=""
+LUX_POOL="yiimp.eu"
+LUX_PORT="8333"
+LUX_WORKER="$WORKERNAME"
+LUX_POOL_PROTOCOL="stratum+tcp"
+
+# Mona Coin (MONA)
+MONA_ADDRESS="replace_with_your_address"
+MONA_EXTENSION_ARGUMENTS=""
+MONA_POOL="mona.suprnova.cc"
+MONA_PORT="2995"
+MONA_WORKER="$WORKERNAME"
+MONA_POOL_PROTOCOL="stratum+tcp"
+
+# Music Coin (MUSIC)
+MUSIC_ADDRESS="replace_with_your_address"
+MUSIC_EXTENSION_ARGUMENTS=""   
+MUSIC_POOL="eus.gmc.epool.io"
+MUSIC_PORT="8008"
+MUSIC_WORKER="$WORKERNAME"
+MUSIC_POOL_PROTOCOL="stratum+tcp"
+
+# DeepOnion (ONION)
+ONION_ADDRESS="replace_with_your_address"
+ONION_EXTENSION_ARGUMENTS=""
+ONION_POOL="kawaiipool.party"
+ONION_PORT="3633"
+ONION_POOL_PROTOCOL="stratum+tcp"
+
+# Orbitcoin (ORB)
+ORB_ADDRESS="replace_with_your_address"
+ORB_EXTENSION_ARGUMENTS=""
+ORB_POOL="strat.dnb.io"
+ORB_PORT="3031"
+ORB_WORKER="$WORKERNAME"
+ORB_POOL_PROTOCOL="stratum+tcp"
+
+# Pascal Coin (PASC)
+PASC_ADDRESS="replace_with_your_address"
+PASC_EXTENSION_ARGUMENTS=""
+PASC_POOL="pasc-us-east1.nanopool.org"
+PASC_PORT="15555"
+PASC_WORKER="$WORKERNAME"
+PASC_POOL_PROTOCOL="stratum+tcp"
+
+# Pascal Lite (PASL)
+PASL_ADDRESS="replace_with_your_address"
+PASL_EXTENSION_ARGUMENTS=""
+PASL_POOL="mine.pasl.fairpool.xyz"
+PASL_PORT="4009"
+PASL_WORKER="$WORKERNAME"
+PASL_POOL_PROTOCOL="stratum+tcp"
+
+# Pirl Coin (PIRL)
+PIRL_ADDRESS="replace_with_your_address"
+PIRL_EXTENSION_ARGUMENTS=""   
+PIRL_POOL="PIRL POOL"
+PIRL_PORT="PIRL PORT"
+PIRL_WORKER="$WORKERNAME"
+PIRL_POOL_PROTOCOL="stratum+tcp"
+
+# Phoenixcoin (PXC)
+PXC_ADDRESS="Pr3Q8WhcJdpxboZsUAcCZvL33rCgPf4Hmb"
+PXC_EXTENSION_ARGUMENTS="-p c=PXC"
+PXC_POOL="xserty.com"
+PXC_PORT="4233"
+PXC_WORKER="$WORKERNAME"
+PXC_POOL_PROTOCOL="stratum+tcp"
+
+# Raven Coin (RVNSOLO)
+RVNSOLO_ADDRESS="RMWe3qZrKyK8iSyXimivEgqPwLdAjz7TFn"
+RVNSOLO_EXTENSION_ARGUMENTS=""
+RVNSOLO_POOL="solo-rvn.2miners.com"
+RVNSOLO_PORT="7070"
+RVNSOLO_WORKER="$WORKERNAME"
+RVNSOLO_POOL_PROTOCOL="stratum+tcp"
+
+# Raven Coin (RVN)
+RVN_ADDRESS="RMWe3qZrKyK8iSyXimivEgqPwLdAjz7TFn"
+RVN_EXTENSION_ARGUMENTS=""
+RVN_POOL="rvn.2miners.com"
+RVN_PORT="6060"
+RVN_WORKER="$WORKERNAME"
+RVN_POOL_PROTOCOL="stratum+tcp"
+
+# Raven Coin (MRMRRVN)
+MRRVN_ADDRESS="moi162001.161253"
+MRRVN_EXTENSION_ARGUMENTS=""
+MRRVN_POOL="eu-de02.miningrigrentals.com"
+MRRVN_PORT="51014"
+MRRVN_WORKER="$WORKERNAME"
+MRRVN_POOL_PROTOCOL="stratum+tcp"
+
+# Siacoin (SC)
+SC_ADDRESS="replace_with_your_address"
+SC_EXTENSION_ARGUMENTS=""
+SC_GW_POOL="sia-us-east1.nanopool.org"
+SC_GW_PORT="9980"
+SC_POOL="sia-us-east1.nanopool.org"
+SC_PORT="7777"
+SC_WORKER="$WORKERNAME"
+SC_POOL_PROTOCOL="stratum+tcp"
+
+# Sib Coin (SIB)
+SIB_ADDRESS="replace_with_your_address"
+SIB_EXTENSION_ARGUMENTS=""
+SIB_POOL="sib.suprnova.cc"
+SIB_PORT="3458"
+SIB_WORKER="$WORKERNAME"
+SIB_POOL_PROTOCOL="stratum+tcp"
+
+# Signatum (SIGT)
+SIGT_ADDRESS="replace_with_your_address"
+SIGT_EXTENSION_ARGUMENTS=""
+SIGT_POOL="us.hashbag.cc"
+SIGT_PORT="8644"
+SIGT_WORKER="$WORKERNAME"
+SIGT_POOL_PROTOCOL="stratum+tcp"
+
+# Smart Coin (SMART)
+SMART_ADDRESS="replace_with_your_address"
+SMART_EXTENSION_ARGUMENTS=""
+SMART_POOL="pool-eu.smartcash.cc"
+SMART_PORT="3333"
+SMART_WORKER="$WORKERNAME"
+SMART_POOL_PROTOCOL="stratum+tcp"
+
+# SOILcoin (SOIL)
+SOIL_ADDRESS="replace_with_your_address"
+SOIL_EXTENSION_ARGUMENTS=""   
+SOIL_POOL="soil.pool.sexy"
+SOIL_PORT="9009"
+SOIL_WORKER="$WORKERNAME"
+SOIL_POOL_PROTOCOL="stratum+tcp"
+
+# Sumokoin (SUMO)
+SUMO_ADDRESS="replace_with_your_address"
+SUMO_EXTENSION_ARGUMENTS=""
+SUMO_POOL="SUMO_POOL"
+SUMO_PORT="SUMO_PORT"
+SUMO_WORKER="$WORKERNAME"
+SUMO_POOL_PROTOCOL="stratum+tcp"
+
+# TrezarCoin (TZC)
+TZC_ADDRESS="TcrVqgh2Bt9DMnrsXEy5XhkbXxYmQMsmKF"
+TZC_EXTENSION_ARGUMENTS="-p c=TZC,mc=TZC"
+TZC_POOL="neoscrypt.mine.zergpool.com"
+TZC_PORT="4233"
+TZC_WORKER="$WORKERNAME"
+TZC_POOL_PROTOCOL="stratum+tcp"
+
+# Ubiq (UBQ)
+UBQ_ADDRESS="replace_with_your_address"
+UBQ_EXTENSION_ARGUMENTS=""   
+UBQ_POOL="us.ubiqpool.io"
+UBQ_PORT="8008"
+UBQ_WORKER="$WORKERNAME"
+UBQ_POOL_PROTOCOL="stratum+tcp"
+
+# VIVO (VIVO)
+VIVO_ADDRESS="VPCYqyg4Zx68aRUGEErUvHR2hCaPFbXMdA"
+VIVO_EXTENSION_ARGUMENTS="-p c=VIVO"
+VIVO_POOL="eu1.altminer.net"
+VIVO_PORT="10001"
+VIVO_WORKER="$WORKERNAME"
+VIVO_POOL_PROTOCOL="stratum+tcp"
+
+# Vertcoin (VTC)
+VTC_ADDRESS="replace_with_your_address"
+VTC_EXTENSION_ARGUMENTS=""
+VTC_POOL="hub.miningpoolhub.com"
+VTC_PORT="20507"
+VTC_WORKER="$WORKERNAME"
+VTC_POOL_PROTOCOL="stratum+tcp"
+
+# XDNA (XDNA)
+XDNA_ADDRESS="replace_with_your_address"
+XDNA_EXTENSION_ARGUMENTS=""
+XDNA_POOL="XMN_POOL_ADDRESS"
+XDNA_PORT="XMN_POOL_PORT"
+XDNA_WORKER="$WORKERNAME"
+XDNA_POOL_PROTOCOL="stratum+tcp"
+
+# Motion (XMN)
+XMN_ADDRESS="replace_with_your_address"
+XMN_EXTENSION_ARGUMENTS=""
+XMN_POOL="XMN_POOL_ADDRESS"
+XMN_PORT="XMN_POOL_PORT"
+XMN_WORKER="$WORKERNAME"
+XMN_POOL_PROTOCOL="stratum+tcp"
+
+# Monero (XMR)
+XMR_ADDRESS="8C9PMYyXWRSHxPv2V8nqZaNC1GSRVDde7BybgywySEUo9khcSJDo4uN79QEiyLt6rEhU1NyydKXwAAnmWgqLB9mFSyX86hu"
+XMR_EXTENSION_ARGUMENTS=""
+XMR_POOL="fr.minexmr.com"
+XMR_PORT="4444"
+XMR_WORKER="$WORKERNAME"
+XMR_POOL_PROTOCOL="stratum+tcp"
+
+# Myriad (XMY)
+XMY_ADDRESS="replace_with_your_address"
+XMY_EXTENSION_ARGUMENTS=""
+XMY_POOL="us-east1.myriadcoin-groestl.miningpoolhub.com"
+XMY_PORT="20479"
+XMY_WORKER="$WORKERNAME"
+XMY_POOL_PROTOCOL="stratum+tcp"
+
+# Verge (XVG)
+XVG_ADDRESS="replace_with_your_address"
+XVG_EXTENSION_ARGUMENTS=""
+XVG_POOL="replace_with_pool_address"
+XVG_PORT="replace_with_pool_port"
+XVG_WORKER="$WORKERNAME"
+XVG_POOL_PROTOCOL="stratum+tcp"
+
+# ZCoin (XZC)
+XZC_ADDRESS="replace_with_your_address"
+XZC_EXTENSION_ARGUMENTS=""
+XZC_POOL="xzc.suprnova.cc"
+XZC_PORT="1569"
+XZC_WORKER="$WORKERNAME"
+XZC_POOL_PROTOCOL="stratum+tcp"
+
+# ZClassic (ZCL)
+ZCL_ADDRESS="moi162001"
+ZCL_EXTENSION_ARGUMENTS="--pass 58125 --par=192_7 --pers=ZcashPoW"
+ZCL_POOL="europe.equihash-hub.miningpoolhub.com"
+ZCL_PORT="20574"
+ZCL_WORKER="$WORKERNAME"
+ZCL_POOL_PROTOCOL="stratum+tcp"
+
+# Zcash (ZEC)
+ZEC_ADDRESS="t1UHb9TchfJvojK3fqhfFY5c6Wccx3tEwLd"
+ZEC_EXTENSION_ARGUMENTS=""
+ZEC_POOL="eu1-zcash.flypool.org"
+ZEC_PORT="3333"
+ZEC_WORKER="$WORKERNAME"
+ZEC_POOL_PROTOCOL="stratum+tcp"
+
+# Zencash (ZEN)
+ZEN_ADDRESS="moi162001"
+ZEN_EXTENSION_ARGUMENTS=""
+ZEN_POOL="zen.suprnova.cc"
+ZEN_PORT="3618"
+ZEN_WORKER="$WORKERNAME"
+ZEN_POOL_PROTOCOL="stratum+tcp"
+
+# plusCPU (defaults: same as XMR)
+plusCPU_ADDRESS="$XMR_ADDRESS"
+plusCPU_EXTENSION_ARGUMENTS="-a cryptonightv7"
+plusCPU_POOL="$XMR_POOL"
+plusCPU_PORT="$XMR_PORT"
+plusCPU_WORKER="$XMR_WORKER"
+
+# example, adding NEWCOIN:
+#
+#   ## Newcoin (NEWCOIN)
+#   NEWCOIN_ADDRESS="replace_with_your_address"
+#   NEWCOIN_EXTENSION_ARGUMENTS=""
+#   NEWCOIN_POOL="newpool.example.org"
+#   NEWCOIN_PORT="4242"
+#   NEWCOIN_WORKER="$WORKERNAME"
+#   NEWCOIN_POOL_PROTOCOL="stratum+tcp"
+
+############################################################################
+###################  config perso ##########################################
+
+
+#-------------------------
+# XMV
+XMV_ADDRESS="495ybc8XMiVDRG5gvAvMdP5i8HNthF1J5LVG3GjKTbNW7zeFMpGHJnHigP9NKL9dexSK6pY8vZv9XXqD2vVtmUfB6i6HHJ3"
+XMV_EXTENSION_ARGUMENTS=""
+XMV_POOL="mine-xmv.leafpool.com"
+XMV_PORT="9992"
+XMV_WORKER="$WORKERNAME"
+XMV_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#ZEL
+ZEL_ADDRESS="t1MSaTKRo8E9jH83YKCcwLVCJeWEirp9TUp"
+ZEL_EXTENSION_ARGUMENTS="--algo 144_5 --pers auto"
+ZEL_POOL="zel-eu.coinblockers.com"
+ZEL_PORT="4446"
+ZEL_WORKER="$WORKERNAME"
+ZEL_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#MBC
+MBC_ADDRESS="MAq8qXsxKvRocBgB7PiXmYeHaLqwVnD8ko"
+MBC_EXTENSION_ARGUMENTS=""
+MBC_POOL="fairmine.pro"
+MBC_PORT="4262"
+MBC_WORKER="$WORKERNAME"
+MBC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# LOBS
+LOBS_ADDRESS="LXFHCPG9LVVbRHEoKKhv7sQbwRqAvTUagG"
+LOBS_EXTENSION_ARGUMENTS=""
+LOBS_POOL="eu1.arcpool.com"
+LOBS_PORT="1720"
+LOBS_WORKER="$WORKERNAME"
+LOBS_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# XLR
+XLR_ADDRESS="SSDS2q4Lfx8iax56cxkYPnESXvgJLhh8qH"
+XLR_EXTENSION_ARGUMENTS=""
+XLR_POOL="lycheebit.com"
+XLR_PORT="3739"
+XLR_WORKER="$WORKERNAME"
+XLR_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#ELP
+ELP_ADDRESS="ANcWRvvSfZGwtdyebtSrK4HeK3HGvHq9Ks"
+ELP_EXTENSION_ARGUMENTS=""
+ELP_POOL="stratum.gos.cx"
+ELP_PORT="3737"
+ELP_WORKER="$WORKERNAME"
+ELP_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+
+#-------------------------
+#NNC
+NNC_ADDRESS="moi162001@yahoo.fr"
+NNC_EXTENSION_ARGUMENTS=""
+NNC_POOL="cryptohub.online"
+NNC_PORT="4090"
+NNC_WORKER="$WORKERNAME"
+NNC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#CTF
+CTF_ADDRESS="CdNEUyJ1aSiezvBUVWQYYKqY1JEYdX4yzX"
+CTF_EXTENSION_ARGUMENTS=""
+CTF_POOL="pool.coin2fly.com"
+CTF_PORT="4233"
+CTF_WORKER="$WORKERNAME"
+CTF_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#DIN
+DIN_ADDRESS="D86NxpXgRS3cJVxx3Z1HRxviimTwSsfeQf"
+DIN_EXTENSION_ARGUMENTS=""
+DIN_POOL="us1.minadorespool.gq"
+DIN_PORT="4233"
+DIN_WORKER="$WORKERNAME"
+DIN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#TUN
+TUN_ADDRESS="TSDPEPjsPJ1u9mUcjbGGZgYnfUdCkdaHXW"
+TUN_EXTENSION_ARGUMENTS=""
+TUN_POOL="eu1.arcpool.com"
+TUN_PORT="1105"
+TUN_WORKER="$WORKERNAME"
+TUN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#LUCKY
+LUCKY_ADDRESS="LVAJZnV5aKDUo4U9GVSm57YUS7GLj8QrVB"
+LUCKY_EXTENSION_ARGUMENTS=""
+LUCKY_POOL="hash4.life"
+LUCKY_PORT="4233"
+LUCKY_WORKER="$WORKERNAME"
+LUCKY_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#VEGI
+VEGI_ADDRESS="KJZatURzyWCcvrtHocwNxXxQbrvQ88DBiU"
+VEGI_EXTENSION_ARGUMENTS=""
+VEGI_POOL="vegi.altcoin-pool.eu"
+VEGI_PORT="3747"
+VEGI_WORKER="$WORKERNAME"
+VEGI_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#NYX
+NYX_ADDRESS="NNjbGe4dG6jx1hT7mLRaTMnyPhHDt9jwsT"
+NYX_EXTENSION_ARGUMENTS=""
+NYX_POOL="eu1.bsod.pw"
+NYX_PORT="2155"
+NYX_WORKER="$WORKERNAME"
+NYX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#PBS
+PBS_ADDRESS="DCHqRjXaNGskbdH6ijt8oLH2ioGkvWbgPL"
+PBS_EXTENSION_ARGUMENTS=""
+PBS_POOL="pool.bsod.pw"
+PBS_PORT="2132"
+PBS_WORKER="$WORKERNAME"
+PBS_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#CROP
+CROP_ADDRESS="cNmN44Rsp2JLgznN2sqNKVEvTrEAhKDy3o"
+CROP_EXTENSION_ARGUMENTS=""
+CROP_POOL="eu.cryptoally.net"
+CROP_PORT="4233"
+CROP_WORKER="$WORKERNAME"
+CROP_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#TLR
+TLR_ADDRESS="TPR7JMERXJN3BvRQfaVNVTHZetcs8VsV"
+TLR_EXTENSION_ARGUMENTS=""
+TLR_POOL="Taler-Pool.online"
+TLR_PORT="7700"
+TLR_WORKER="$WORKERNAME"
+TLR_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#QBIC
+QBIC_ADDRESS="GXa1qShmidD1dk2VwE4KEFRPfqVFR2G1HU"
+QBIC_EXTENSION_ARGUMENTS=""
+QBIC_POOL="pool.bsod.pw"
+QBIC_PORT="2130"
+QBIC_WORKER="$WORKERNAME"
+QBIC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#WAE
+WAE_ADDRESS="KZTx4ymPcJeaH2wryM2A7iEziLmeeWZfAZ"
+WAE_EXTENSION_ARGUMENTS=""
+WAE_POOL="54.64.147.208"
+WAE_PORT="4533"
+WAE_WORKER="$WORKERNAME"
+WAE_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#TRTL
+TRTL_ADDRESS="TRTLv2jRw4Q3ibJo7uAmf5JTGJeAw3CA2DEBQYAZBpSGc3XmDkMB3rMYwt54DXrAEC2ZGCm8kL988eMPHddWJPM7ZhZWkW6dRqt"
+TRTL_EXTENSION_ARGUMENTS=""
+TRTL_POOL="trtl.mine2gether.com"
+TRTL_PORT="2225"
+TRTL_WORKER="$WORKERNAME"
+TRTL_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#STONE
+STONE_ADDRESS="ShUmNxX7CKZsp6vYYW1nmSLH6m4pedebew"
+STONE_EXTENSION_ARGUMENTS=""
+STONE_POOL="eu1.arcpool.com"
+STONE_PORT="31011"
+STONE_WORKER="$WORKERNAME"
+STONE_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#GOA
+GOA_ADDRESS="Gabefew173BekoEHuXyEJ1UhGvFpkQnhjB"
+GOA_EXTENSION_ARGUMENTS=""
+GOA_POOL="pool.bsod.pw"
+GOA_PORT="1997"
+GOA_WORKER="$WORKERNAME"
+GOA_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#SPK
+SPK_ADDRESS="GPaZxp2QxCApuJ6yc3SW7LYeXP8SyKx7qs"
+SPK_EXTENSION_ARGUMENTS=""
+SPK_POOL="pool.bsod.pw"
+SPK_PORT="1995"
+SPK_WORKER="$WORKERNAME"
+SPK_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#FRM
+FRM_ADDRESS="FRrzqFqbuGxKgqnmo1TZowQL6448waG2eG"
+FRM_EXTENSION_ARGUMENTS=""
+FRM_POOL="pool.bsod.pw"
+FRM_PORT="2151"
+FRM_WORKER="$WORKERNAME"
+FRM_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#ONEX
+ONEX_ADDRESS="XWYwEzmEQCU7b7CiuiMNToNbFDioPrVEqv"
+ONEX_EXTENSION_ARGUMENTS=""
+ONEX_POOL="eu1.altminer.net"
+ONEX_PORT="10005"
+ONEX_WORKER="$WORKERNAME"
+ONEX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#GRLC
+GRLC_ADDRESS="moi162001"
+GRLC_EXTENSION_ARGUMENTS=""
+GRLC_POOL="grlc.suprnova.cc"
+GRLC_PORT="8600"
+GRLC_WORKER="$WORKERNAME"
+GRLC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#ABS
+ABS_ADDRESS="AW74Y31okrwLNUVTBN8MRG3FX6bairStQ7"
+ABS_EXTENSION_ARGUMENTS=""
+ABS_POOL="evil.ru"
+ABS_PORT="4533"
+ABS_WORKER="$WORKERNAME"
+ABS_POOL_PROTOCOL="stratum+tcp"
+#--------------------------
+
+#--------------------------
+#DNR
+DNR_ADDRESS="DDzDZ52HzHcUCre2N3v4zjTNcYdfLRPqnL"
+DNR_EXTENSION_ARGUMENTS=""
+DNR_POOL="yiimp.eu"
+DNR_PORT="8533"
+DNR_WORKER="$WORKERNAME"
+DNR_POOL_PROTOCOL="stratum+tcp"
+
+#-------------------------
+
+#--------------------------
+#BTN
+BTN_ADDRESS="BJtWZ23VGRr6hREKG7DsKTTKnisUvBkYqZ"
+BTN_EXTENSION_ARGUMENTS=""
+BTN_POOL="yiimp.fatpanda.club"
+BTN_PORT="4233"
+BTN_WORKER="$WORKERNAME"
+BTN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#STN
+STN_ADDRESS="ShUmNxX7CKZsp6vYYW1nmSLH6m4pedebew"
+STN_EXTENSION_ARGUMENTS=""
+STN_POOL="pool.bsod.pw"
+STN_PORT="2031"
+STN_WORKER="$WORKERNAME"
+STN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#GUN
+GUN_ADDRESS="moi162001"
+GUN_EXTENSION_ARGUMENTS="-p 58125"
+GUN_POOL="stratum.gun.theblocksfactory.com"
+GUN_PORT="3330"
+GUN_WORKER="$WORKERNAME"
+GUN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# MNX
+MNX_ADDRESS="moi162001"
+MNX_EXTENSION_ARGUMENTS=""
+MNX_POOL="mnx.suprnova.cc"
+MNX_PORT="7076"
+MNX_WORKER="$WORKERNAME"
+MNX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# EBS
+EBS_ADDRESS="DD7ELkGoHRXwiYA6vrAUEaBu9X6E1C3Dr5"
+EBS_EXTENSION_ARGUMENTS=""
+EBS_POOL="cryptohashtank.net"
+EBS_PORT="2099"
+EBS_WORKER="$WORKERNAME"
+EBS_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# CGUR
+CGUR_ADDRESS="4AuUcd9JKbeTqEd2vE1UDLNJUU25S75dzX"
+CGUR_EXTENSION_ARGUMENTS=""
+CGUR_POOL="angrypool.com"
+CGUR_PORT="20050"
+CGUR_WORKER="$WORKERNAME"
+CGUR_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# WANT
+WANT_ADDRESS="D348ToV7KRzf5pJ5ppPXpnU9fmNRtsQ6Ft"
+WANT_EXTENSION_ARGUMENTS=""
+WANT_POOL="hash4.life"
+WANT_PORT="4233"
+WANT_WORKER="$WORKERNAME"
+WANT_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# XSH
+XSH_ADDRESS="SYMNxo4JfQq8NNs3bKWSKTmkFpmThFXusK"
+XSH_EXTENSION_ARGUMENTS=""
+XSH_POOL="eu.bsod.pw"
+XSH_PORT="3737"
+XSH_WORKER="$WORKERNAME"
+XSH_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+
+#-------------------------
+# CMM
+CMM_ADDRESS="CL99dv1djEALDmzwTywuR6S5tRcRS9Hk4z"
+CMM_EXTENSION_ARGUMENTS=""
+CMM_POOL="mine.vpool.io"
+CMM_PORT="3032"
+CMM_WORKER="$WORKERNAME"
+CMM_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# AKA
+AKA_ADDRESS="0x1C53bD1e1eF44De9fbA029B633a13c85b9544F22"
+AKA_EXTENSION_ARGUMENTS=""
+AKA_POOL="geo.pool.akroma.eu"
+AKA_PORT="8002"
+AKA_WORKER="$WORKERNAME"
+AKA_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# ZOO
+ZOO_ADDRESS="ZHmxHBdf3nu9qYu2yDkJE3xSpE1pU6D7h7"
+ZOO_EXTENSION_ARGUMENTS=""
+ZOO_POOL="eu.bsod.pw"
+ZOO_PORT="2346"
+ZOO_WORKER="$WORKERNAME"
+ZOO_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# REOSC
+REOSC_ADDRESS="0xF2b3e71AFD299158Fa0851D186FeD2adAe2Ee54d"
+REOSC_EXTENSION_ARGUMENTS="-p x"
+REOSC_POOL="kingsminer.ddnsking.com"
+REOSC_PORT="8008"
+REOSC_WORKER="$WORKERNAME"
+REOSC_POOL_PROTOCOL="stratum+tcp"
+#------------------------
+
+#-------------------------
+# REOSCS
+REOSCS_ADDRESS="0xc9806453ae88e1417b1f644e77f06c5730f05a6b"
+REOSCS_EXTENSION_ARGUMENTS=""
+REOSCS_POOL="solo.reosc.io"
+REOSCS_PORT="3131"
+REOSCS_WORKER="$WORKERNAME"
+REOSCS_POOL_PROTOCOL="stratum1+tcp"
+#------------------------
+
+#-------------------------
+# RYO
+RYO_ADDRESS="Sumoo2NXMa944yFEXQRGa4CkvAzLfosh1BLPQc3NdyvU8kTDkPUbtyAivBXuBbcjztPBn8HmNA7oU43wdejadNR6Ca8bVErjZMj"
+RYO_EXTENSION_ARGUMENTS="w=moi162001"
+RYO_POOL="ryo.miner.rocks"
+RYO_PORT="5555"
+RYO_WORKER="$WORKERNAME"
+RYO_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# MOAC
+MOAC_ADDRESS="0x391f23e07c49e55Dbd0938c74624a5CbBEA4d68B"
+MOAC_EXTENSION_ARGUMENTS=""
+MOAC_POOL="moac.bylt.gq"
+MOAC_PORT="5005"
+MOAC_WORKER="$WORKERNAME"
+MOAC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# WHL
+WHL_ADDRESS="0x535347413c96E78777487273a73d4b2d2B13C8C1"
+WHL_EXTENSION_ARGUMENTS=""
+WHL_POOL="geo.pool.whalecoin.eu"
+WHL_PORT="8001"
+WHL_WORKER="$WORKERNAME"
+WHL_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# SPLB_ETHASH 
+SPLB_ADDRESS="SPpDQYaP4GgS11zydLm7CmHvefBpF6htrk"
+SPBL_EXTENSION_ARGUMENTS=""
+SPLB_POOL="eu.bsod.pw"
+SPLB_PORT="2288"
+SPLB_WORKER="$WORKERNAME"
+SPLB_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#TUX
+TUX_ADDRESS="TCzJeWbmQmemqwWS5ta1gXymki2phdjobE"
+TUX_EXTENSION_ARGUMENTS="-p c=TUX"
+TUX_POOL="powerpool.money"
+TUX_PORT="4443"
+TUX_WORKER="$WORKERNAME"
+TUX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#SCRIV
+SCRIV_ADDRESS="setkyEaD5Xiy3LnbuDpwNKE5DRAK8kgETM"
+SCRIV_EXTENSION_ARGUMENTS="-p c=SCRIV"
+SCRIV_POOL="eu.gos.cx"
+SCRIV_PORT="8500"
+SCRIV_WORKER="$WORKERNAME"
+SCRIV_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#VIOG
+VIOG_ADDRESS="XhjW8WPSTfaKxDQtn745vHNvPpih3v3P84"
+VIOG_EXTENSION_ARGUMENTS="-p c=VIOG"
+VIOG_POOL="pool.brofist.online"
+VIOG_PORT="4233"
+VIOG_WORKER="$WORKERNAME"
+VIOG_POOL_PROTOCOL="stratum+tcp"
+#VIOG_INTENSITY=""
+#-------------------------
+
+#--------------------------
+#LINC
+LINC_ADDRESS="LdktCgBMEDhBucX9V2ekkqfmcJyoknccZp"
+LINC_EXTENSION_ARGUMENTS="-p c=LINC,mc=LINC"
+LINC_POOL="neoscrypt.mine.zergpool.com"
+LINC_PORT="4233"
+LINC_WORKER="$WORKERNAME"
+LINC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#IQ
+
+IQ_ADDRESS="moi162001"
+IQ_EXTENSION_ARGUMENTS=""
+IQ_POOL="pool.iq.cash"
+IQ_PORT="3333"
+IQ_WORKER="$WORKERNAME"
+IQ_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#URALS
+URALS_ADDRESS="uYtj2TPW1xDm4wRyFCghNJzuhGXbaLGMHZ"
+URALS_EXTENSION_ARGUMENTS="c=URALS"
+URALS_POOL="pool.uralscoin.info"
+URALS_PORT="3739"
+URALS_WORKER="$WORKERNAME"
+URALS_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#QNO
+QNO_ADDRESS="YeNSnA2bM98ogsbZy9mBjTNzt7RbTPFpi6"
+QNO_EXTENSION_ARGUMENTS="c=QNO"
+QNO_POOL="pool.tera.tn"
+QNO_PORT="42330"
+QNO_WORKER="$WORKERNAME"
+QNO_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#--------------------------
+#PEW
+
+PEW_ADDRESS="PRTSRhzCXQwRWXD25EoPboJUpUj58vCuhj"
+PEW_EXTENSION_ARGUMENTS="c=PEW"
+PEW_POOL="pool.brofist.online"
+PEW_PORT="4233"
+PEW_WORKER="$WORKERNAME"
+PEW_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# DCU
+DCU_ADDRESS="moi162001"
+DCU_EXTENSION_ARGUMENTS=""
+DCU_POOL="mpos-pools.com"
+DCU_PORT="3549"
+DCU_WORKER="$WORKERNAME"
+DCU_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# ZERO
+ZERO_ADDRESS="moi162001"
+ZERO_EXTENSION_ARGUMENTS="--pers auto --algo 192_7"
+ZERO_POOL="zero.suprnova.cc"
+ZERO_PORT="6568"
+ZERO_WORKER="$WORKERNAME"
+ZERO_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# XDNA 
+XDNA_ADDRESS="moi162001"
+XDNA_EXTENSION_ARGUMENTS=""
+XDNA_POOL="xdna.suprnova.cc"
+XDNA_PORT="4919"
+XDNA_WORKER="$WORKERNAME"
+XDNA_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# VRSC 
+VRSC_ADDRESS="RDMH1NqEMSSu7k9nf8jhNw7RVzAoTqBjhg"
+VRSC_EXTENSION_ARGUMENTS=""
+VRSC_POOL="eu.luckpool.net"
+VRSC_PORT="3957"
+VRSC_WORKER="$WORKERNAME"
+VRSC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# TRAID 
+TRAID_ADDRESS="TfoemXfCGoJWjKtNvSPe23qUKfjZc39FmT"
+TRAID_EXTENSION_ARGUMENTS=""
+TRAID_POOL="pool.traid.tv"
+TRAID_PORT="3008"
+TRAID_WORKER="$WORKERNAME"
+TRAID_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# BZL 
+BZL_ADDRESS="BDVbKnGBbNKrna5jgFAuvvhwiMCNKfYDcR"
+BZL_EXTENSION_ARGUMENTS=""
+BZL_POOL="eu1.fairmine.pro"
+BZL_PORT="8533"
+BZL_WORKER="$WORKERNAME"
+BZL_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# SIN 
+SIN_ADDRESS="SevptVeiK7fFNZ5jUzuyKwUoD6UAtuoDet"
+SIN_EXTENSION_ARGUMENTS="-p c=SIN"
+SIN_POOL="eu.icemining.ca"
+SIN_PORT="4205"
+SIN_WORKER="$WORKERNAME"
+SIN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# GRAFT 
+GRAFT_ADDRESS="GMPHYf5KRkcAyik7Jw9oHRfJtUdw2Kj5f4VTFJ25AaFVYxofetir8Cnh7S76Q854oMXzwaguL8p5KEz1tm3rn1SA6ikBcpoJE32RubTd8T.moi162001"
+GRAFT_EXTENSION_ARGUMENTS=""
+GRAFT_POOL="pool.fractalyse.info"
+GRAFT_PORT="8082"
+GRAFT_WORKER="$WORKERNAME"
+GRAFT_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# EGEM 
+EGEM_ADDRESS="0x37e329d05b104baac5b0a5a506b55597eef1ab98"
+EGEM_EXTENSION_ARGUMENTS=""
+EGEM_POOL="eu.bsod.pw"
+EGEM_PORT="8001"
+EGEM_WORKER="$WORKERNAME"
+EGEM_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# TTC 
+TTC_ADDRESS="moi162001.20627"
+TTC_EXTENSION_ARGUMENTS=""
+TTC_POOL="pool.simpleco.in"
+TTC_PORT="8081"
+TTC_WORKER="$WORKERNAME"
+TTC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# HDRX 
+HDRX_ADDRESS="HcWgsKuWuwy8GGDGHjyt7c5Yk5UVVUWVN9"
+HDRX_EXTENSION_ARGUMENTS="-p x"
+HDRX_POOL="eu.gos.cx"
+HDRX_PORT="5100"
+HDRX_WORKER="$WORKERNAME"
+HDRX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# ZIXX 
+ZIXX_ADDRESS="zDm1euGWz5TzZUgZ6USfYJDN4YheKdeEnQ"
+ZIXX_EXTENSION_ARGUMENTS="-p x"
+ZIXX_POOL="eu.gos.cx"
+ZIXX_PORT="4234"
+ZIXX_WORKER="$WORKERNAME"
+ZIXX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#BEAM
+BEAM_ADDRESS="ssl://279701a295e2a8f02791245bcb3c71b2791d423ae4b97acd79432f99d24d2f70f0"
+BEAM_EXTENSION_ARGUMENTS="" #miniz --par=algo
+BEAM_POOL="beam-eu.leafpool.com"
+BEAM_PORT="4444"
+BEAM_WORKER="$WORKERNAME"
+BEAM_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#DYN
+DYN_ADDRESS="moi162001.test03"
+DYN_EXTENSION_ARGUMENTS="-p 58125"
+DYN_POOL="dyn.suprnova.cc"
+DYN_PORT="5960"
+DYN_WORKER="$WORKERNAME"
+DYN_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#SAFE
+SAFE_ADDRESS="RnZsDkB81BXbbzQoNFMnATWzqD1s512Mz3"
+SAFE_EXTENSION_ARGUMENTS="--pass minpayout=25 --algo 192_7 --pers Safecoin" #miniz --par=algo
+SAFE_POOL="mine-safe-euro.equipool.1ds.us"
+SAFE_PORT="50112"
+SAFE_WORKER="$WORKERNAME"
+SAFE_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# STG 
+STG_ADDRESS="SYkaK9mj28PjfrsqDqxRZ8kr82MT1UfB7s"
+STG_EXTENSION_ARGUMENTS=""
+STG_POOL="hashing.network"
+STG_PORT="42334"
+STG_WORKER="$WORKERNAME"
+STG_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# WEB 
+WEB_ADDRESS="0x2a5e92859c3bccfce86e73f831135f6f5a513a68"
+WEB_EXTENSION_ARGUMENTS=""
+WEB_POOL="pool.webchain.network"
+WEB_PORT="3333"
+WEB_WORKER="$WORKERNAME"
+WEB_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# SPDR 
+SPDR_ADDRESS="SQSPxMEcyKsQcksUpefZxNnN4XEC5YAGsi"
+SPDR_EXTENSION_ARGUMENTS=""
+SPDR_POOL="eu.gos.cx"
+SPDR_PORT="8444"
+SPDR_WORKER="$WORKERNAME"
+SPDR_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#CHI
+CHI_ADDRESS="CZxV6bYiD2wc6eDWbStfRBnhzTfJ4oP3hj"
+CHI_EXTENSION_ARGUMENTS="-p x"
+CHI_POOL="eu.bsod.pw"
+CHI_PORT="2534"
+CHI_WORKER="$WORKERNAME"
+CHI_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# EXO 
+EXO_ADDRESS="ELqbLgnwvZkcKcJgXZNGPoLJSqZfb359x1"
+EXO_EXTENSION_ARGUMENTS="-p x"
+EXO_POOL="eu.bsod.pw"
+EXO_PORT="2472"
+EXO_WORKER="$WORKERNAME"
+EXO_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# B2G 
+B2G_ADDRESS="0xBD658e46Ef74F7a19f9EE7BB1f2128164ae4e4Fc"
+B2G_EXTENSION_ARGUMENTS=""
+B2G_POOL="b2g.miningfrance.io"
+B2G_PORT="10300"
+B2G_WORKER="$WORKERNAME"
+B2G_POOL_PROTOCOL="stratum1+tcp"
+#-------------------------
+
+#-------------------------
+# IDC 
+IDC_ADDRESS="DDpLTyyBpWzeK81zjr8DBKGWx68byBo7W4"
+IDC_EXTENSION_ARGUMENTS="-p c=IDC"
+IDC_POOL="sccpool.org"
+IDC_PORT="3833"
+IDC_WORKER="$WORKERNAME"
+IDC_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# TNA 
+TNA_ADDRESS="TpycWcYmgErypP1XpocdVaYZgUtoDnGeUE"
+TNA_EXTENSION_ARGUMENTS="-p c=TNA"
+TNA_POOL="eu.gethash.cc"
+TNA_PORT="3642"
+TNA_WORKER="$WORKERNAME"
+TNA_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# TRAGO 
+TRAGO_ADDRESS="ThR69sxtQPA9QW8HhP4ZkX4imTr3qRgebZ"
+TRAGO_EXTENSION_ARGUMENTS="-p c=TRAGO"
+TRAGO_POOL="pool.0769.it"
+TRAGO_PORT="3688"
+TRAGO_WORKER="$WORKERNAME"
+TRAGO_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#ARW
+ARW_ADDRESS="as13xvqchpr76nhct0nartaz60zm79rlpjljw4r6jmkdhfnc9r8mzsfpsu9pc8xw5n5a49fy56z3rn"
+ARW_EXTENSION_ARGUMENTS="--par 192_7 --pers ArrowPoW --pass x" #miniz --par=algo
+ARW_POOL="stratum.icemining.ca"
+ARW_PORT="3880"
+ARW_WORKER="$WORKERNAME"
+ARW_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+#DISL
+DISL_ADDRESS="Scyu4noURNGmgFu5Z6rTVVdUdb1HyhT3rk"
+DISL_EXTENSION_ARGUMENTS="-p c=DISL"
+DISL_POOL="pool.digitslate.io"
+DISL_PORT="4233"
+DISL_WORKER="$WORKERNAME"
+DISL_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# GEX 
+GEX_ADDRESS="GdTxhYw4Y96h9rNramBqNpNKXPzXMML9PC"
+GEX_EXTENSION_ARGUMENTS="-i 7"
+GEX_POOL="eu.gos.cx"
+GEX_PORT="8555"
+GEX_WORKER="$WORKERNAME"
+GEX_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+#-------------------------
+# ETH1 
+ETH1_ADDRESS="0x587cAd6f821F184920a43Aeb24472B150eD352ce"
+ETH1_EXTENSION_ARGUMENTS=""
+ETH1_POOL="etho.miningfrance.io"
+ETH1_PORT="10300"
+ETH1_WORKER="$WORKERNAME"
+ETH1_POOL_PROTOCOL="stratum1+tcp"
+#-------------------------
+
+#-------------------------
+# MOG 
+MOG_ADDRESS="MSKQe5ySXVky6tJGEXJu73JxmYYbjQGJpm"
+MOG_EXTENSION_ARGUMENTS="-p c=MOG,mc=MOG"
+MOG_POOL="neoscrypt.mine.zergpool.com"
+MOG_PORT="4233"
+MOG_WORKER="$WORKERNAME"
+MOG_POOL_PROTOCOL="stratum+tcp"
+#-------------------------
+
+
+
+# plusCPU (defaults: same as XMR)
+plusCPU_ADDRESS="$XMR_ADDRESS"
+plusCPU_EXTENSION_ARGUMENTS="-a cryptonightv7"
+plusCPU_POOL="$XMR_POOL"
+plusCPU_PORT="$XMR_PORT"
+plusCPU_WORKER="$XMR_WORKER"
+
+# example, adding NEWCOIN:
+#
+#   ## Newcoin (NEWCOIN)
+#   NEWCOIN_ADDRESS="replace_with_your_address"
+#   NEWCOIN_EXTENSION_ARGUMENTS=""
+#   NEWCOIN_POOL="newpool.example.org"
+#   NEWCOIN_PORT="4242"
+#   NEWCOIN_WORKER="$WORKERNAME"
+#   NEWCOIN_POOL_PROTOCOL="stratum+tcp"
+
+
+###################################################
+# Claymore_Dual Mining                            #
+# Set COIN="CLAYMORE_DUAL"                        #  
+###################################################
+
+###You can use variables like this for both ECOIN and DCOIN (If use variables remeber to set correct values in the coin section above):
+## ECOIN Example:
+  #DUAL_ECOIN="ETH"
+  #DUAL_EPOOL="$ETH_POOL"        
+  #DUAL_EPORT="$ETH_PORT"            
+  #DUAL_EWAL="$ETH_ADDRESS"       
+  #DUAL_EPSW="$MINER_PWD"                       
+  #DUAL_EWORKER="$ETH_WORKER"  
+
+DUAL_ECOIN="MAIN COIN"                      #Main Coin, Ethereum or any Ethash Coin
+DUAL_EPOOL="MAIN COIN POOL ADDREES"         #Main Coin pool address, no need to add stratum+tcp://
+DUAL_EPORT="MAIN COIN POOL PORT"            #Main Coin Port Number
+DUAL_EWAL="MAIN COIN WALLET ADDRESS"        #Main Coin Wallet address or pool username
+DUAL_EPSW="$MINER_PWD"                      #Main Coin worker password on pool
+DUAL_EWORKER="$WORKER"                      #Main Coin Worker Name
+
+DUAL_DCOIN="DUAL COIN"                      #select second coin to mine in dual mode. Possible options are "dcr", "sc", "lbc", "pasc", "blake2s", "keccak". Default value is "dcr".
+DUAL_DPOOL="DUAL COIN POOL ADDRESS"         #2nd coin pool address
+DUAL_DPORT="DUAL COIN POOL PORT"            #2nd coin pool address
+DUAL_DWAL="DUAL COIN WALLET ADDRESS"        #2nd coin wallet address or worker name, it depends on pool.
+DUAL_DPSW="$MINER_PWD"                      #Password for 2nd coin .
+DUAL_DWORKER="$WORKER"                      #Worker name for 2nd coin
+
+DCRI="40"                                   #2nd coin intensity.
+ALL_POOLS="0"                               #0 or 1, Set to 1, if miner does not want to mine on specified pool (because it cannot mine devfee on that pool), but you agree to use some default pools for devfee mining. 
+ALL_COINS="0"                               #0 or 1, Set to 1 to be able to mine Ethereum forks, in this mode miner will use some default pools for devfee Ethereum mining. 
+MPORT="-3333"                               #remote monitoring/management port. Default value is -3333 (read-only mode), specify "-mport 0" to disable remote monitoring/management feature. 
+MPSW=""                                     #remote monitoring/management password.
+DUAL_ADDITIONAL_ARGUMENTS=""                #Additional arguments if needed
+
+
+###################################################
+# Bminer_Dual Mining                              #
+# Set COIN="BMINER_DUAL"                          #  
+###################################################
+
+
+MAIN_COIN=""                                  #Main Coin, Ethereum or any Ethash Coin
+MAIN_COIN_ADDRESS="replace_with_your_address" #Main Coin wallet address
+MAIN_COIN_POOL="POOL_ADDRESS"                 #Main Coin pool address
+MAIN_COIN_PORT="POOL_PORT"                    #Main Coin pool port
+MAIN_COIN_WORKER="$WORKERNAME"                #Main Coin worker name
+MAIN_COIN_POOL_PROTOCOL="ethash"              #Main Coin pool protocol: "ethash", "ethproxy", "ethstratum", "ethash+ssl"
+
+DUAL_COIN=""                                  #Dual Coin, blake14r and blake2s coins
+DUAL_COIN_ADDRESS="replace_with_your_address" #Dual Coin wallet address
+DUAL_COIN_POOL="POOL_ADDRESS"                 #Dual Coin pool address
+DUAL_COIN_PORT="PORT"                         #Dual Coin pool port
+DUAL_COIN_WORKER="$WORKERNAME"                #Dual Coin worker name
+DUAL_COIN_POOL_PROTOCOL="blake2s"             #Dual Coin Supported algos: "blake14r", "blake2s" 
+
+
+########################################################
+#                                                      #
+###############    NiceHash Info       #################
+#                                                      #
+########################################################
+
+## Nicehash autoconverts to BTC: ensure you update NICE_ADDRESS
+
+
+#NICE_CUCKAROO29
+NICE_CUCKAROO29_POOL="grincuckaroo29.eu.nicehash.com"
+NICE_CUCKAROO29_PORT="3371"
+NICE_CUCKAROO29_WORKER="$WORKERNAME"
+NICE_CUCKAROO29_EXTENSION_ARGUMENTS=""
+
+#NICE_CUCKATOO31
+NICE_CUCKATOO31_POOL="grincuckatoo31.eu.nicehash.com"
+NICE_CUCKATOO31_PORT="3372"
+NICE_CUCKATOO31_WORKER="$WORKERNAME"
+NICE_CUCKATOO31_EXTENSION_ARGUMENTS=""
+
+# NICE_ETHASH 
+NICE_ETHASH_POOL="daggerhashimoto.usa.nicehash.com"
+NICE_ETHASH_PORT="3353"
+NICE_ETHASH_WORKER="$WORKERNAME"
+NICE_ETHASH_EXTENSION_ARGUMENTS=""            # To mine with claymore add "-esm 3 -allpools 1 -estale 0"
+NICE_ETHASH_POOL_PROTOCOL=""  
+
+# Nice Equihash
+NICE_EQUIHASH_POOL="equihash.usa.nicehash.com"
+NICE_EQUIHASH_PORT="3357"
+NICE_EQUIHASH_WORKER="$WORKERNAME"
+NICE_EQUIHASH_EXTENSION_ARGUMENTS=""
+
+#NICE_LYRA2REV2 
+NICE_LYRA2REV2_POOL="lyra2rev2.eu.nicehash.com"
+NICE_LYRA2REV2_PORT="3347"
+NICE_LYRA2REV2_WORKER="$WORKERNAME"
+NICE_LYRA2REV2_EXTENSION_ARGUMENTS=""
+
+#NICE_NEOSCRYPT 
+NICE_NEOSCRYPT_POOL="neoscrypt.eu.nicehash.com"
+NICE_NEOSCRYPT_PORT="3341"
+NICE_NEOSCRYPT_WORKER="$WORKERNAME"
+NICE_NEOSCRYPT_EXTENSION_ARGUMENTS=""
+
+#NICE_CRYPTONIGHT
+NICE_CRYPTONIGHT_POOL="cryptonight.eu.nicehash.com"
+NICE_CRYPTONIGHT_PORT="3355"
+NICE_CRYPTONIGHT_WORKER="$WORKERNAME"
+NICE_CRYPTONIGHT_EXTENSION_ARGUMENTS=""
+
+#NICE_CRYPTONIGHTV7
+NICE_CRYPTONIGHTV7_POOL="cryptonightv7.eu.nicehash.com"
+NICE_CRYPTONIGHTV7_PORT="3363"
+NICE_CRYPTONIGHTV7_WORKER="$WORKERNAME"
+NICE_CRYPTONIGHTV7_EXTENSION_ARGUMENTS=""
+
+#NICE_CRYPTONIGHTV8
+NICE_CRYPTONIGHTV8_POOL="cryptonightv8.eu.nicehash.com"
+NICE_CRYPTONIGHTV8_PORT="3367"
+NICE_CRYPTONIGHTV8_WORKER="$WORKERNAME"
+NICE_CRYPTONIGHTV8_EXTENSION_ARGUMENTS=""
+
+#NICE_CRYPTONIGHTNHEAVY
+NICE_CRYPTONIGHTNHEAVY_POOL="cryptonightheavy.eu.nicehash.com"
+NICE_CRYPTONIGHTNHEAVY_PORT="3364"
+NICE_CRYPTONIGHTNHEAVY_WORKER="$WORKERNAME"
+NICE_CRYPTONIGHTNHEAVY_EXTENSION_ARGUMENTS=""
+
+# CRYPTONIGHT R
+CNR_POWERLIMIT_WATTS=100    # Recommended value for some GTX-1060: 62
+CNR_CORE_OVERCLOCK=0        # Recommended value for some GTX-1060: 155
+CNR_MEMORY_OVERCLOCK=0 # Recommended value for some GTX-1060: -300
+
+#NICE_X11GOST 
+NICE_X11GOST_POOL="x11gost.eu.nicehash.com"
+NICE_X11GOST_PORT="3359"
+NICE_X11GOST_WORKER="$WORKERNAME"
+NICE_CRYPTONIGHT_EXTENSION_ARGUMENTS=""
+
+#NICE_SKUNKHASH 
+NICE_SKUNKHASH_POOL="skunk.eu.nicehash.com"
+NICE_SKUNKHASH_PORT="3362"
+NICE_SKUNKHASH_WORKER="$WORKERNAME"
+NICE_CRYPTONIGHT_EXTENSION_ARGUMENTS=""
+
+#NICE_X16R 
+NICE_X16R_POOL="x16r.eu.nicehash.com"
+NICE_X16R_PORT="3366"
+NICE_X16R_WORKER="$WORKERNAME"
+NICE_X16R_EXTENSION_ARGUMENTS=""
+
+# example, adding NICE_NEWALGO:
+#
+#   #NICE_NEWALGO
+#   NICE_NEWALGO_ADDRESS="$NICE_ADDRESS"
+#   NICE_NEWALGO_EXTENSION_ARGUMENTS=""
+#   NICE_NEWALGO_POOL="newalgo.eu.nicehash.com"
+#   NICE_NEWALGO_PORT="4242"
+#   NICE_NEWALGO_WORKER="$WORKERNAME"
+#   NICE_NEWALGO_POOL_PROTOCOL="stratum+tcp"
+#
+# then search and edit NEWALGO_COINS="...,NICE_NEWALGO"
+#
+# NOTE: if you use WTM switching make sure to use as nicehash coin name the NICE_ prefix
+#       followed by the exact name of the algo like named by WTM
+
+########################################################
+#                                                      #
+################    ZPOOL Info       ###################
+#                                                      #
+########################################################
+
+## ZPOOL uses your BTC_ADDRESS 
+
+# ZPOOL_SKUNK 
+ZPOOL_SKUNK_POOL="skunk.mine.zpool.ca"
+ZPOOL_SKUNK_PORT="8433"
+ZPOOL_SKUNK_WORKER="$WORKERNAME"
+ZPOOL_SKUNK_EXTENSION_ARGUMENTS=""
+
+# ZPOOL_LYRA2V2
+ZPOOL_LYRA2V2_POOL="lyra2v2.mine.zpool.ca"
+ZPOOL_LYRA2V2_PORT="4533"
+ZPOOL_LYRA2V2_WORKER="$WORKERNAME"
+ZPOOL_LYRA2V2_EXTENSION_ARGUMENTS=""
+
+# ZPOOL_EQUIHASH
+ZPOOL_EQUIHASH_POOL="equihash.mine.zpool.ca"
+ZPOOL_EQUIHASH_PORT="2142"
+ZPOOL_EQUIHASH_WORKER="$WORKERNAME"
+ZPOOL_EQUIHASH_EXTENSION_ARGUMENTS=""
+
+# ZPOOL_LBRY
+ZPOOL_LBRY_POOL="lbc.mine.zpool.ca"
+ZPOOL_LBRY_PORT="3334"
+ZPOOL_LBRY_WORKER="$WORKERNAME"
+ZPOOL_LBRY_EXTENSION_ARGUMENTS=""
+
+# ZPOOL_NEOSCRYPT
+ZPOOL_NEOSCRYPT_POOL="neoscrypt.mine.zpool.ca"
+ZPOOL_NEOSCRYPT_PORT="4233"
+ZPOOL_NEOSCRYPT_WORKER="$WORKERNAME"
+ZPOOL_NEOSCRYPT_EXTENSION_ARGUMENTS=""
+
+# ZPOOL_SKEIN 
+ZPOOL_SKEIN_POOL="skein.mine.zpool.ca"
+ZPOOL_SKEIN_PORT="4933"
+ZPOOL_SKEIN_WORKER="$WORKERNAME"
+ZPOOL_SKEIN_EXTENSION_ARGUMENTS=""
+
+########################################################
+#                                                      #
+#############    MiningPoolHub Info       ##############
+#                                                      #
+########################################################
+
+# MPH_EQUIHASH
+MPH_EQUIHASH_WORKER="$WORKERNAME"
+MPH_EQUIHASH_POOL="us-east.equihash-hub.miningpoolhub.com"
+MPH_EQUIHASH_PORT="17023"
+MPH_EQUIHASH_EXTENSION_ARGUMENTS=""
+
+# MPH_ETHASH
+MPH_ETHASH_WORKER="$WORKERNAME"
+MPH_ETHASH_POOL="us-east.ethash-hub.miningpoolhub.com"
+MPH_ETHASH_PORT="17020"
+MPH_ETHASH_EXTENSION_ARGUMENTS=""
+
+# MPH_SKEIN
+MPH_SKEIN_WORKER="$WORKERNAME"
+MPH_SKEIN_POOL="hub.miningpoolhub.com"
+MPH_SKEIN_PORT="17016"
+MPH_SKEIN_EXTENSION_ARGUMENTS=""
+
+# MPH_LYRA2Z
+MPH_LYRA2Z_WORKER="$WORKERNAME"
+MPH_LYRA2Z_POOL="us-east.lyra2z-hub.miningpoolhub.com"
+MPH_LYRA2Z_PORT="17025"
+
+# MPH_NEOSCRYPT
+MPH_NEOSCRYPT_WORKER="$WORKERNAME"
+MPH_NEOSCRYPT_POOL="hub.miningpoolhub.com"
+MPH_NEOSCRYPT_PORT="17012"
+MPH_NEOSCRYPT_EXTENSION_ARGUMENTS=""
+
+# MPH_LYRA2V2
+MPH_LYRA2V2_WORKER="$WORKERNAME"
+MPH_LYRA2V2_POOL="hub.miningpoolhub.com"
+MPH_LYRA2V2_PORT="17018"
+MPH_LYRA2V2_EXTENSION_ARGUMENTS=""
+
+# MPH_CRYPTONIGHTV7
+MPH_CRYPTONIGHTV7_WORKER="$WORKERNAME"
+MPH_CRYPTONIGHTV7_POOL="us-east.cryptonight-hub.miningpoolhub.com"
+MPH_CRYPTONIGHTV7_PORT="17024"
+MPH_CRYPTONIGHTV7_EXTENSION_ARGUMENTS=""
+
+# MPH_KECCAK
+MPH_KECCAK_WORKER="$WORKERNAME"
+MPH_KECCAK_POOL="hub.miningpoolhub.com"
+MPH_KECCAK_PORT="17003"
+MPH_KECCAK_EXTENSION_ARGUMENTS=""
+
+# MPH_GRS
+MPH_GRS_WORKER="$WORKERNAME"
+MPH_GRS_POOL="hub.miningpoolhub.com"
+MPH_GRS_PORT="17004"
+MPH_GRS_EXTENSION_ARGUMENTS=""
+
+
+#####################################################################
+#                                                                   #
+# Individual GPU_SPECIFIC Power Limit, Temp and Clock settings      #
+#                                                                   #
+#####################################################################
+
+# Set individual target temps here if INDIVIDUAL_TARGET_TEMPS="YES"
+TARGET_TEMP_0=75
+TARGET_TEMP_1=75
+TARGET_TEMP_2=75
+TARGET_TEMP_3=75
+TARGET_TEMP_4=75
+TARGET_TEMP_5=75
+TARGET_TEMP_6=75
+TARGET_TEMP_7=75
+TARGET_TEMP_8=75
+TARGET_TEMP_9=75
+TARGET_TEMP_10=75
+TARGET_TEMP_11=75
+TARGET_TEMP_12=75
+TARGET_TEMP_13=75
+TARGET_TEMP_14=75
+TARGET_TEMP_15=75
+TARGET_TEMP_16=75
+TARGET_TEMP_17=75
+TARGET_TEMP_18=75
+
+# Please note that individual clocks and powerlimit settings will be applied to
+# global base (eventually algo-specific) values as overrides according
+# to the previously selected OVERCLOCK_MODE / POWERLIMIT_MODE policy.
+
+# Set individual powerlimits here if POWERLIMIT_MODE is GPU_SPECIFIC
+INDIVIDUAL_POWERLIMIT_0=100
+INDIVIDUAL_POWERLIMIT_1=100
+INDIVIDUAL_POWERLIMIT_2=100
+INDIVIDUAL_POWERLIMIT_3=100
+INDIVIDUAL_POWERLIMIT_4=100
+INDIVIDUAL_POWERLIMIT_5=100
+INDIVIDUAL_POWERLIMIT_6=100
+INDIVIDUAL_POWERLIMIT_7=100
+INDIVIDUAL_POWERLIMIT_8=100
+INDIVIDUAL_POWERLIMIT_9=100
+INDIVIDUAL_POWERLIMIT_10=100
+INDIVIDUAL_POWERLIMIT_11=100
+INDIVIDUAL_POWERLIMIT_12=100
+INDIVIDUAL_POWERLIMIT_13=100
+INDIVIDUAL_POWERLIMIT_14=100
+INDIVIDUAL_POWERLIMIT_15=100
+INDIVIDUAL_POWERLIMIT_16=100
+INDIVIDUAL_POWERLIMIT_17=100
+INDIVIDUAL_POWERLIMIT_18=100
+
+# Set individual clocks here if OVERCLOCK_MODE is GPU_SPECIFIC
+__CORE_OVERCLOCK_0=100
+MEMORY_OVERCLOCK_0=100
+
+__CORE_OVERCLOCK_1=100
+MEMORY_OVERCLOCK_1=100
+
+__CORE_OVERCLOCK_2=100
+MEMORY_OVERCLOCK_2=100
+
+__CORE_OVERCLOCK_3=100
+MEMORY_OVERCLOCK_3=100
+
+__CORE_OVERCLOCK_4=100
+MEMORY_OVERCLOCK_4=100
+
+__CORE_OVERCLOCK_5=100
+MEMORY_OVERCLOCK_5=100
+
+__CORE_OVERCLOCK_6=100
+MEMORY_OVERCLOCK_6=100
+
+__CORE_OVERCLOCK_7=100
+MEMORY_OVERCLOCK_7=100
+
+__CORE_OVERCLOCK_8=100
+MEMORY_OVERCLOCK_8=100
+
+__CORE_OVERCLOCK_9=100
+MEMORY_OVERCLOCK_9=100
+
+__CORE_OVERCLOCK_10=100
+MEMORY_OVERCLOCK_10=100
+
+__CORE_OVERCLOCK_11=100
+MEMORY_OVERCLOCK_11=100
+
+__CORE_OVERCLOCK_12=100
+MEMORY_OVERCLOCK_12=100
+
+__CORE_OVERCLOCK_13=100
+MEMORY_OVERCLOCK_13=100
+
+__CORE_OVERCLOCK_14=100
+MEMORY_OVERCLOCK_14=100
+
+__CORE_OVERCLOCK_15=100
+MEMORY_OVERCLOCK_15=100
+
+__CORE_OVERCLOCK_16=100
+MEMORY_OVERCLOCK_16=100
+
+__CORE_OVERCLOCK_17=100
+MEMORY_OVERCLOCK_17=100
+
+__CORE_OVERCLOCK_18=100
+MEMORY_OVERCLOCK_18=100
+
+
+########################################################
+#                                                      #
+# ALGO_SPECIFIC Power Limit and Clock settings         #
+#                                                      #
+########################################################
+
+# OC settings used according to current mining ALGO
+
+# Uppercase algos are those used for single coin mining (no auto switch) and by WTM switcher
+# Lowercase algos are those used by all salfter-based switchers
+
+# For any missing algo settings the following fallback policy is applied:
+#   *_POWERLIMIT_WATTS defaults to global POWERLIMIT_WATTS value
+#   *_*_OVERCLOCK defaults both algo specific OC offsets to 0
+
+# Recommended values are for 1060 check http://krypto-mining.blogspot.co.uk/ for other OC values
+
+# ARGON2D
+ARGON2D_POWERLIMIT_WATTS=80             # Recommended value for some GTX-1060: 
+ARGON2D_CORE_OVERCLOCK=0                 # Recommended value for some GTX-1060: 
+ARGON2D_MEMORY_OVERCLOCK=1000               # Recommended value for some GTX-1060: 
+
+# BITCORE, TIMETRAVEL10
+BITCORE_POWERLIMIT_WATTS=65             # Recommended value for some GTX-1060: 65
+BITCORE_CORE_OVERCLOCK=0                 # Recommended value for some GTX-1060: 150
+BITCORE_MEMORY_OVERCLOCK=0               # Recommended value for some GTX-1060: 800
+
+# Cryptonight
+#CRYPTONIGHT_POWERLIMIT_WATTS=65         # Recommended value for some GTX-1060: 62
+#CRYPTONIGHT_CORE_OVERCLOCK=0             # Recommended value for some GTX-1060: 155
+#CRYPTONIGHT_MEMORY_OVERCLOCK=0           # Recommended value for some GTX-1060: -300
+
+# CN7
+CNV7_POWERLIMIT_WATTS=65       # Recommended value for some GTX-1060: 62
+CNV7_CORE_OVERCLOCK=0           # Recommended value for some GTX-1060: 155
+CNV7_MEMORY_OVERCLOCK=0         # Recommended value for some GTX-1060: -300
+
+# CN8
+CNV8_POWERLIMIT_WATTS=120       # Recommended value for some GTX-1060: 62
+CNV8_CORE_OVERCLOCK=155          # Recommended value for some GTX-1060: 155
+CNV8_MEMORY_OVERCLOCK=0         # Recommended value for some GTX-1060: -300
+
+# CRYPTONIGHT HEAVY
+CNHEAVY_POWERLIMIT_WATTS=65    # Recommended value for some GTX-1060: 62
+CNHEAVY_CORE_OVERCLOCK=0        # Recommended value for some GTX-1060: 155
+CNHEAVY_MEMORY_OVERCLOCK=0      # Recommended value for some GTX-1060: -300
+
+# CRYPTONIGHT R
+CNR_POWERLIMIT_WATTS=100    # Recommended value for some GTX-1060: 62
+CNR_CORE_OVERCLOCK=0        # Recommended value for some GTX-1060: 155
+CNR_MEMORY_OVERCLOCK=0      # Recommended value for some GTX-1060: -300
+
+#CUCKAROO29
+CUCKAROO29_POWERLIMIT_WATTS=100          # Recommended value same as Equihash
+CUCKAROO29_CORE_OVERCLOCK=0                # Recommended value same as Equihash
+CUCKAROO29_MEMORY_OVERCLOCK=0              # Recommended value same as Equihash
+
+#CUCKATOO31
+CUCKATOO31_POWERLIMIT_WATTS=100          # Recommended value same as Equihash
+CUCKATOO31_CORE_OVERCLOCK=0                # Recommended value same as Equihash
+CUCKATOO31_MEMORY_OVERCLOCK=0              # Recommended value same as Equihash
+
+#CUCKOOCYCLE
+CUCKOOCYCLE_POWERLIMIT_WATTS=80          # Recommended value same as Equihash
+CUCKOOCYCLE_CORE_OVERCLOCK=100                # Recommended value same as Equihash
+CUCKOOCYCLE_MEMORY_OVERCLOCK=1000              # Recommended value same as Equihash
+
+# ENERGI
+ENERGI_POWERLIMIT_WATTS=65              # Same as Ethash
+ENERGI_CORE_OVERCLOCK=0                  # Same as Ethash
+ENERGI_MEMORY_OVERCLOCK=0                # Same as Ethash
+
+# EQHZERO
+EQHZERO_POWERLIMIT_WATTS=100            # Recommended value for some GTX-1060: 76 60 90
+EQHZERO_CORE_OVERCLOCK=130             # Recommended value for some GTX-1060: 150 140pour miner1 130
+EQHZERO_MEMORY_OVERCLOCK=1300          # Recommended value for some GTX-1060: 800 1000 1300 1400
+
+# EQHZEL
+EQHZEL_POWERLIMIT_WATTS=100            # Recommended value for some GTX-1060: 76 60 90
+EQHZEL_CORE_OVERCLOCK=130             # Recommended value for some GTX-1060: 150 140pour miner1 130
+EQHZEL_MEMORY_OVERCLOCK=1300          # Recommended value for some GTX-1060: 800 1000 1300 1400
+
+# EQHBEAM
+EQHBEAM_POWERLIMIT_WATTS=100            # Recommended value for some GTX-1060: 76 60 90
+EQHBEAM_CORE_OVERCLOCK=120             # Recommended value for some GTX-1060: 150 140pour miner1 130
+EQHBEAM_MEMORY_OVERCLOCK=1200          # Recommended value for some GTX-1060: 800 1000 1300 1400
+
+# Ethash
+ETHASH_POWERLIMIT_WATTS=90               # Recommended value for some GTX-1060: 76 
+ETHASH_CORE_OVERCLOCK=100                  # Recommended value for some GTX-1060: 100
+ETHASH_MEMORY_OVERCLOCK=1000             # Recommended value for some GTX-1060: 1600
+
+# EXOSIS
+EXOSIS_POWERLIMIT_WATTS=76                # Recommended value for some GTX-1060: 65 76
+EXOSIS_CORE_OVERCLOCK=120                    # Recommended value for some GTX-1060: 100 120
+EXOSIS_MEMORY_OVERCLOCK=200                  # Recommended value for some GTX-1060: 100 200
+
+# HEX
+HEX_POWERLIMIT_WATTS=65 
+HEX_CORE_OVERCLOCK=0
+HEX_MEMORY_OVERCLOCK=0
+
+# lyra2v2, Lyura2Rev2
+LYRA2V2_POWERLIMIT_WATTS=65             # Recommended value for some GTX-1060: 65
+LYRA2V2_CORE_OVERCLOCK=0                 # Recommended value for some GTX-1060: 160
+LYRA2V2_MEMORY_OVERCLOCK=0               # Recommended value for some GTX-1060: -1000
+
+# LYRA2Z
+LYRA2Z_POWERLIMIT_WATTS=65           # Recommended value for some GTX-1060: 65
+LYRA2Z_CORE_OVERCLOCK=0               # Recommended value for some GTX-1060: 135
+LYRA2Z_MEMORY_OVERCLOCK=0             # Recommended value for some GTX-1060: -1200
+
+# LYRA2WEB
+LYRA2WEB_POWERLIMIT_WATTS=65                # No recommended value available
+LYRA2WEB_CORE_OVERCLOCK=100                    # No recommended value available
+LYRA2WEB_MEMORY_OVERCLOCK=200                  # No recommended value available
+
+# Neoscrypt
+NEOSCRYPT_POWERLIMIT_WATTS=75           # Recommended value for some GTX-1060: 90
+NEOSCRYPT_CORE_OVERCLOCK=140               # Recommended value for some GTX-1060: 160
+NEOSCRYPT_MEMORY_OVERCLOCK=200             # Recommended value for some GTX-1060: 0
+
+# NeoscryptXaya
+NEOSCRYPTXAYA_POWERLIMIT_WATTS=75           # Recommended value for some GTX-1060: 90
+NEOSCRYPTXAYA_CORE_OVERCLOCK=120               # Recommended value for some GTX-1060: 160
+NEOSCRYPTXAYA_MEMORY_OVERCLOCK=200             # Recommended value for some GTX-1060: 0
+
+# PHI1612
+PHI1612_POWERLIMIT_WATTS=65             # No recommended value available
+PHI1612_CORE_OVERCLOCK=0                 # No recommended value available
+PHI1612_MEMORY_OVERCLOCK=0               # No recommended value available
+
+# PHI2
+PHI2_POWERLIMIT_WATTS=90                # No recommended value available
+PHI2_CORE_OVERCLOCK=130                   # No recommended value available
+PHI2_MEMORY_OVERCLOCK=-500                  # No recommended value available
+
+# PROGPOW
+PROGPOW_POWERLIMIT_WATTS=65                # No recommended value available
+PROGPOW_CORE_OVERCLOCK=100                    # No recommended value available
+PROGPOW_MEMORY_OVERCLOCK=400                  # No recommended value available
+
+# KAWPOW
+KAWPOW_POWERLIMIT_WATTS=70                # No recommended value available
+KAWPOW_CORE_OVERCLOCK=100                    # No recommended value available
+KAWPOW_MEMORY_OVERCLOCK=800                  # No recommended value available
+
+# KECCAK
+KECCAK_POWERLIMIT_WATTS=65                # No recommended value available
+KECCAK_CORE_OVERCLOCK=0                    # No recommended value available
+KECCAK_MEMORY_OVERCLOCK=0                  # No recommended value available
+
+# Skunk
+SKUNK_POWERLIMIT_WATTS=65               # Recommended value for some GTX-1060: 78
+SKUNK_CORE_OVERCLOCK=0                   # Recommended value for some GTX-1060: 150
+SKUNK_MEMORY_OVERCLOCK=0                 # Recommended value for some GTX-1060: 1000
+
+# Tribus
+TRIBUS_POWERLIMIT_WATTS=80               # Recommended value for some GTX-1060: 80
+TRIBUS_CORE_OVERCLOCK=150                # Recommended value for some GTX-1060: 150
+TRIBUS_MEMORY_OVERCLOCK=200              # Recommended value for some GTX-1060: 200
+
+# Verus
+VERUS_POWERLIMIT_WATTS=90                # Recommended value for some GTX-1060: 90
+VERUS_CORE_OVERCLOCK=160                 # Recommended value for some GTX-1060: 160
+VERUS_MEMORY_OVERCLOCK=0                # Recommended value for some GTX-1060: 0
+
+# X16R
+X16R_POWERLIMIT_WATTS=90                # Recommended value for some GTX-1060: 65
+X16R_CORE_OVERCLOCK=100                    # Recommended value for some GTX-1060: 100
+X16R_MEMORY_OVERCLOCK=100                  # Recommended value for some GTX-1060: 100
+
+# X22I
+X22I_POWERLIMIT_WATTS=65                  # Recommended value for some GTX-1060: 65
+X22I_CORE_OVERCLOCK=120                   # Recommended value for some GTX-1060: 100
+X22I_MEMORY_OVERCLOCK=100                 # Recommended value for some GTX-1060: 100
+
+# X21S
+X21S_POWERLIMIT_WATTS=65                  # Recommended value for some GTX-1060: 65
+X21S_CORE_OVERCLOCK=120                   # Recommended value for some GTX-1060: 100
+X21S_MEMORY_OVERCLOCK=100                 # Recommended value for some GTX-1060: 100
+
+# X25X
+X25X_POWERLIMIT_WATTS=65                  # Recommended value for some GTX-1060: 65
+X25X_CORE_OVERCLOCK=120                   # Recommended value for some GTX-1060: 100
+X25X_MEMORY_OVERCLOCK=100                 # Recommended value for some GTX-1060: 100
+
+# Xevan
+XEVAN_POWERLIMIT_WATTS=65               # Recommended value for some GTX-1060: 65
+XEVAN_CORE_OVERCLOCK=0                   # Recommended value for some GTX-1060: 100
+XEVAN_MEMORY_OVERCLOCK=0                 # Recommended value for some GTX-1060: 600
+
+# ZHASH
+ZHASH_POWERLIMIT_WATTS=76               # Recommended value for some GTX-1060: 76
+ZHASH_CORE_OVERCLOCK=150                 # Recommended value for some GTX-1060: 150
+ZHASH_MEMORY_OVERCLOCK=850               # Recommended value for some GTX-1060: 850
+
+### IGNORE PL & OC SETTINGS BELOW THIS LINE IF YOU DON'T USE ANY SALFTER_* AUTO SWITCHER
+
+# Nicehash and MiningPoolHub sometimes use different names fot the same algo. Therefore:
+#  - SALFTER_NICEHASH_SWITCHING matches Nicehash naming convention
+#  - SALFTER_MPH_SWITCHING matches MiningPoolHub naming convention
+#  - SALFTER_PROGRAMATIC_SWITCHING also matches MiningPoolHub convention
+# For your convenience, the matching naming convention is indicated above each settings block
+
+# daggerhashimoto @ NICEHASH
+daggerhashimoto_POWERLIMIT_WATTS=65     # Recommended value for some GTX-1060: 76
+daggerhashimoto_CORE_OVERCLOCK=0         # Recommended value for some GTX-1060: -200
+daggerhashimoto_MEMORY_OVERCLOCK=0       # Recommended value for some GTX-1060: 1200
+
+# lbry @ NICEHASH
+lbry_POWERLIMIT_WATTS=65                # Recommended value for some GTX-1060: 120
+lbry_CORE_OVERCLOCK=0                    # Recommended value for some GTX-1060: 100
+lbry_MEMORY_OVERCLOCK=0                  # Recommended value for some GTX-1060: 100
+
+# lyra2rev2 @ NICEHASH
+lyra2rev2_POWERLIMIT_WATTS=65           # Recommended value for some GTX-1060: 120
+lyra2rev2_CORE_OVERCLOCK=0               # Recommended value for some GTX-1060: 100
+lyra2rev2_MEMORY_OVERCLOCK=0             # Recommended value for some GTX-1060: 100
+
+# equihash @ NICEHASH & MININGPOOLHUB
+equihash_POWERLIMIT_WATTS=65            # Recommended value for some GTX-1060: 76
+equihash_CORE_OVERCLOCK=0                # Recommended value for some GTX-1060: 150
+equihash_MEMORY_OVERCLOCK=0              # Recommended value for some GTX-1060: 400
+
+# neoscrypt @ NICEHASH & MININGPOOLHUB
+neoscrypt_POWERLIMIT_WATTS=65           # Recommended value for some GTX-1060: 80
+neoscrypt_CORE_OVERCLOCK=0               # Recommended value for some GTX-1060: 150
+neoscrypt_MEMORY_OVERCLOCK=0             # Recommended value for some GTX-1060: 800
+
+# cryptonight_monero @ MININGPOOLHUB
+cryptonight_monero_POWERLIMIT_WATTS=65  # Recommended value for some GTX-1060: 62
+cryptonight_monero_CORE_OVERCLOCK=0      # Recommended value for some GTX-1060: 155
+cryptonight_monero_MEMORY_OVERCLOCK=0    # Recommended value for some GTX-1060: -300
+
+# ethash @ MININGPOOLHUB
+ethash_POWERLIMIT_WATTS=65              # Recommended value for some GTX-1060: 76
+ethash_CORE_OVERCLOCK=0                  # Recommended value for some GTX-1060: -200
+ethash_MEMORY_OVERCLOCK=0                # Recommended value for some GTX-1060: 1200
+
+# groestl @ MININGPOOLHUB
+groestl_POWERLIMIT_WATTS=65             # Recommended value for some GTX-1060: 120
+groestl_CORE_OVERCLOCK=0                 # Recommended value for some GTX-1060: 100
+groestl_MEMORY_OVERCLOCK=0               # Recommended value for some GTX-1060: 100
+
+# keccak @ MININGPOOLHUB
+keccak_POWERLIMIT_WATTS=65              # Recommended value for some GTX-1060: 120
+keccak_CORE_OVERCLOCK=0                  # Recommended value for some GTX-1060: 100
+keccak_MEMORY_OVERCLOCK=0                # Recommended value for some GTX-1060: 100
+
+# lyra2re2 @ MININGPOOLHUB
+lyra2re2_POWERLIMIT_WATTS=65            # Recommended value for some GTX-1060: 120
+lyra2re2_CORE_OVERCLOCK=0                # Recommended value for some GTX-1060: 100
+lyra2re2_MEMORY_OVERCLOCK=0              # Recommended value for some GTX-1060: 100
+
+# myriad_groestl @ MININGPOOLHUB
+myriad_groestl_POWERLIMIT_WATTS=65      # Recommended value for some GTX-1060: 120
+myriad_groestl_CORE_OVERCLOCK=0          # Recommended value for some GTX-1060: 100
+myriad_groestl_MEMORY_OVERCLOCK=0        # Recommended value for some GTX-1060: 100
+
+# qubit @ MININGPOOLHUB
+qubit_POWERLIMIT_WATTS=65               # Recommended value for some GTX-1060: 120
+qubit_CORE_OVERCLOCK=0                   # Recommended value for some GTX-1060: 100
+qubit_MEMORY_OVERCLOCK=0                 # Recommended value for some GTX-1060: 100
+
+# scrypt @ MININGPOOLHUB
+scrypt_POWERLIMIT_WATTS=65              # Recommended value for some GTX-1060: 120
+scrypt_CORE_OVERCLOCK=0                  # Recommended value for some GTX-1060: 100
+scrypt_MEMORY_OVERCLOCK=0                # Recommended value for some GTX-1060: 100
+
+# sia @ MININGPOOLHUB
+sia_POWERLIMIT_WATTS=65                 # Recommended value for some GTX-1060: 120
+sia_CORE_OVERCLOCK=0                     # Recommended value for some GTX-1060: 100
+sia_MEMORY_OVERCLOCK=0                   # Recommended value for some GTX-1060: 100
+
+# skein @ MININGPOOLHUB
+skein_POWERLIMIT_WATTS=65               # Recommended value for some GTX-1060: 120
+skein_CORE_OVERCLOCK=0                   # Recommended value for some GTX-1060: 100
+skein_MEMORY_OVERCLOCK=0                 # Recommended value for some GTX-1060: 100
+
+# x11 @ MININGPOOLHUB
+x11_POWERLIMIT_WATTS=65                 # Recommended value for some GTX-1060: 120
+x11_CORE_OVERCLOCK=0                     # Recommended value for some GTX-1060: 100
+x11_MEMORY_OVERCLOCK=0                   # Recommended value for some GTX-1060: 100
+
+# WEB
+WEB_POWERLIMIT_WATTS=65                # No recommended value available
+WEB_CORE_OVERCLOCK=100                    # No recommended value available
+WEB_MEMORY_OVERCLOCK=200                  # No recommended value available
+
+################################################################
+#                                                              #
+# AUTOMATIC PROFIT-BASED MINING SWITCHERS                      #
+#                                                              #
+################################################################
+
+
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+# papampi WTM_SWITCHING / PROFIT_CHECK settings        #
+
+WTM_PROFIT_CHECK="NO"      # whattomine.com Profit check for webinfo, only use if AUTO_SWITCH is not WTM_SWITCHING
+
+# note!! all selected COINS must HAVE ADDRESSES in the coin section (no need for address if switch=no and profit=yes )
+# select which coins you want to mine or check profit (profit switch only using this list of coins) it will auto switch/check profit of your COIN selection from this list using whattomine.com
+
+WTM_AUTO_SWITCH_COINS="ZEC;ZEN;ETH;BTG;FTC"   # Coins to check profit or make the switch with format "ZEC;ETH;ETC;XMR"
+
+WTM_AUTO_SWITCH_SYNC_INTERVAL="3"             # Time to sync with WTM for best coin, minimum 3 minutes.
+
+WTM_PROFIT_CHECK_INTERVAL="30"                # interval between checking profit for web info
+
+WTM_MIN_DIFFERENCE="6"                        # Mininumum difference in percent when switch to new coin, to prevent too many switches.
+
+WTM_MINIMUM_MINING_TIME="1800"                # Minimum mining time (seconds) before checking and switching to prevent fast switches.
+
+WTM_LOWER_MIN_DIFFERENCE="3"                  # When Minimum Mining time passed, next top coin will switch with lower difference
+
+WTM_FORCE_SWITCH="8"                          # If profit gain is more than this value make the switch and dont wait for minimum mining time.
+
+WTM_CURRENCY="USD"                            # USD, AUD, BRL, CAD, CHF, CLP, CNY, DKK, EUR, GBP, HKD, INR, ISK, JPY, KRW, NZD, PLN, RUB, SEK, SGD, THB, TWD
+
+#Read below for how to change the url
+WTM_AUTO_SWITCH_URL="https://whattomine.com/coins.json?utf8=%E2%9C%93&adapt_q_280x=0&adapt_q_380=0&adapt_q_fury=0&adapt_q_470=1&adapt_q_480=3&adapt_q_570=0&adapt_q_580=0&adapt_q_750Ti=0&adapt_q_1050Ti=1&adapt_q_10606=6&adapt_10606=true&adapt_q_1070=1&adapt_q_1080=1&adapt_q_1080Ti=1&eth=true&factor%5Beth_hr%5D=135.0&factor%5Beth_p%5D=540.0&grof=true&factor%5Bgro_hr%5D=123.0&factor%5Bgro_p%5D=540.0&x11gf=true&factor%5Bx11g_hr%5D=43.2&factor%5Bx11g_p%5D=540.0&cn=true&factor%5Bcn_hr%5D=2580.0&factor%5Bcn_p%5D=420.0&eq=true&factor%5Beq_hr%5D=1620.0&factor%5Beq_p%5D=540.0&lre=true&factor%5Blrev2_hr%5D=121800.0&factor%5Blrev2_p%5D=540.0&ns=true&factor%5Bns_hr%5D=3000.0&factor%5Bns_p%5D=540.0&lbry=true&factor%5Blbry_hr%5D=1020.0&factor%5Blbry_p%5D=540.0&bk2bf=true&factor%5Bbk2b_hr%5D=5940.0&factor%5Bbk2b_p%5D=480.0&bk14=true&factor%5Bbk14_hr%5D=9300.0&factor%5Bbk14_p%5D=540.0&pas=true&factor%5Bpas_hr%5D=3480.0&factor%5Bpas_p%5D=540.0&skh=true&factor%5Bskh_hr%5D=108.0&factor%5Bskh_p%5D=540.0&factor%5Bl2z_hr%5D=420.0&factor%5Bl2z_p%5D=300.0&factor%5Bcost%5D=0.0&sort=Profit&volume=0&revenue=current&factor%5Bexchanges%5D%5B%5D=&factor%5Bexchanges%5D%5B%5D=abucoins&factor%5Bexchanges%5D%5B%5D=bitfinex&factor%5Bexchanges%5D%5B%5D=bittrex&factor%5Bexchanges%5D%5B%5D=bleutrade&factor%5Bexchanges%5D%5B%5D=c_cex&factor%5Bexchanges%5D%5B%5D=cryptopia&factor%5Bexchanges%5D%5B%5D=hitbtc&factor%5Bexchanges%5D%5B%5D=poloniex&factor%5Bexchanges%5D%5B%5D=yobit&dataset=Main&commit=Calculate"
+
+## Go to [ https://whattomine.com/coins ] select your cards, hash rate, power, algos, exchanges, ...
+# Set "Sort by" and "Difficulty for Revenue" to "Current profit" and "Current dificulty" ... "last 24, 3 days,...  " are not good for auto switch.
+# Click calculate, and wait for page to load, copy the new url and add .json to /coins at the begining of the url.
+# like this " https://whattomine.com/coins.json?utf8=✓&adapt....."
+# Above url is for 6x1060
+
+
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+# All SALFTER_*_SWITCHING settings                     #
+
+# Change this url to one you use for your own
+PROGRAMATIC_SWITCH_CONFIG_JSON_URL="https://pastebin.com/dl/eLU4B8rK"
+
+CURRENCY=USD
+
+POWER_COST=0.10
+
+MINIMUM_PROFIT=0.0
+
+MPH_USERNAME="$MPH_ADDRESS"
+
+PAYMENT_ADDRESS="$NICE_ADDRESS"
+
+WORKER_NAME="$WORKERNAME"
+
+PROFIT_CHECK_TIMEOUT=600
+
+# ENSURE YOU USE MINER_TEMP_CONTROL for fanspeed with salfter switcher
+
+########################################################
+#                                                      #
+# Telegram settings                                    #
+#                                                      #
+########################################################
+
+# The Telegram service can periodically send Telegram messages with the status of your rig.
+# Please watch kk003's video tutorial how to create a telegram bot and get Api Key + User Id:
+# https://youtu.be/HS7Q1zH00bs
+# If You set telegram to "NO" but add CHATID and API, you will only get notifications from system.
+
+TELEGRAM_MESSAGES="NO"               # YES or NO # Set to YES if you want to receive Telegram Periodic Messages
+
+TELEGRAM_ALERTS="NO"                 # YES or NO # Set to No if you Dont want to get Telegram Alerts on warnings
+
+TELEGRAM_TYPE="papampi"              # kk003 or papampi or damNmad or BaliMiner # There are 4 versions. Please choose one
+
+TELEGRAM_TIMEOUT_IN_MINUTES="60"     # timeout
+
+TELEGRAM_CHATID="CHATID"             # Enter your Chat ID here
+
+TELEGRAM_APIKEY="Your Telegram API"  # Enter your API Key here
